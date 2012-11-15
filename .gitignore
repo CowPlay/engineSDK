@@ -11,3 +11,12 @@
 *.lai
 *.la
 *.a
+
+#Linux
+DebugLinux/**
+ReleaseLinux/**
+
+
+#OSX
+DebugOSX/**
+ReleaseOSX/**
