@@ -18,5 +18,6 @@ ReleaseLinux/**
 
 
 #OSX
+.DS_Store
 DebugOSX/**
 ReleaseOSX/**
