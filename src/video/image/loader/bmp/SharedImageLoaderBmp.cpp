@@ -126,7 +126,7 @@ namespace irrgame
 			{
 				case 1:
 				{
-					result = IImage::createEmptyImage(ECF_A1R5G5B5, dim);//new CImage(ECF_A1R5G5B5, dim);
+					result = createEmptyImage(ECF_A1R5G5B5, dim);//new CImage(ECF_A1R5G5B5, dim);
 
 					SharedColorConverter::getInstance().convert1BitTo16Bit(
 							bmpData, (s16*) result->lock(), header.Width,
@@ -136,7 +136,7 @@ namespace irrgame
 				}
 				case 4:
 				{
-					result = IImage::createEmptyImage(ECF_A1R5G5B5, dim);
+					result = createEmptyImage(ECF_A1R5G5B5, dim);
 
 					SharedColorConverter::getInstance().convert4BitTo16Bit(
 							bmpData, (s16*) result->lock(), header.Width,
@@ -146,7 +146,7 @@ namespace irrgame
 				}
 				case 8:
 				{
-					result = IImage::createEmptyImage(ECF_A1R5G5B5, dim);
+					result = createEmptyImage(ECF_A1R5G5B5, dim);
 
 					SharedColorConverter::getInstance().convert8BitTo16Bit(
 							bmpData, (s16*) result->lock(), header.Width,
@@ -156,7 +156,7 @@ namespace irrgame
 				}
 				case 16:
 				{
-					result = IImage::createEmptyImage(ECF_A1R5G5B5, dim);
+					result = createEmptyImage(ECF_A1R5G5B5, dim);
 
 					SharedColorConverter::getInstance().convert16BitTo16Bit(
 							(s16*) bmpData, (s16*) result->lock(), header.Width,
@@ -165,7 +165,7 @@ namespace irrgame
 				}
 				case 24:
 				{
-					result = IImage::createEmptyImage(ECF_R8G8B8, dim);
+					result = createEmptyImage(ECF_R8G8B8, dim);
 
 					SharedColorConverter::getInstance().convert24BitTo24Bit(
 							bmpData, (u8*) result->lock(), header.Width,
@@ -175,7 +175,7 @@ namespace irrgame
 				}
 				case 32:
 				{ // thx to Reinhard Ostermeier
-					result = IImage::createEmptyImage(ECF_A8R8G8B8, dim);
+					result = createEmptyImage(ECF_A8R8G8B8, dim);
 
 					SharedColorConverter::getInstance().convert32BitTo32Bit(
 							(s32*) bmpData, (s32*) result->lock(), header.Width,

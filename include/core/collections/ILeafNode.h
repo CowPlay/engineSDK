@@ -111,12 +111,14 @@ namespace irrgame
 			CIterator<T*> it = Children.begin();
 
 			for (; it != Children.end(); ++it)
+			{
 				if ((*it) == child)
 				{
 					(*it)->Parent = 0;
 					(*it)->drop();
 					Children.erase(it);
 				}
+			}
 		}
 
 		//! Removes all children of this scene node

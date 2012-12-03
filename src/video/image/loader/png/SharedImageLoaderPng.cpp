@@ -163,12 +163,12 @@ namespace irrgame
 			// Create the image structure to be filled by png data
 			if (ColorType == PNG_COLOR_TYPE_RGB_ALPHA)
 			{
-				result = IImage::createEmptyImage(ECF_A8R8G8B8,
+				result = createEmptyImage(ECF_A8R8G8B8,
 						dimension2du(Width, Height));
 			}
 			else
 			{
-				result = IImage::createEmptyImage(ECF_R8G8B8,
+				result = createEmptyImage(ECF_R8G8B8,
 						dimension2du(Width, Height));
 			}
 

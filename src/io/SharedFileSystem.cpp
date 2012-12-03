@@ -35,11 +35,7 @@ namespace irrgame
 		}
 
 		//! Creates a XML Reader from a file which returns all parsed strings as ASCII/UTF-8 characters (char*).
-		/** See IXMLReader for more information on how to use the parser.
-		 \return 0, if file could not be opened, otherwise a pointer to the created
-		 IXMLReader is returned. After use, the reader
-		 has to be deleted using its IXMLReader::drop() method.
-		 See IReferenceCounted::drop() for more information. */
+
 		IXMLReader* SharedFileSystem::createXMLReader(
 				const core::stringc& filename)
 		{
@@ -56,12 +52,7 @@ namespace irrgame
 		}
 
 		//! Creates a XML Reader from a file which returns all parsed strings as ASCII/UTF-8 characters (char*).
-		/** Use createXMLReader() if you prefer wchar_t* instead of char*. See IIrrXMLReader for
-		 more information on how to use the parser.
-		 \return 0, if file could not be opened, otherwise a pointer to the created
-		 IXMLReader is returned. After use, the reader
-		 has to be deleted using its IXMLReader::drop() method.
-		 See IReferenceCounted::drop() for more information. */
+
 		IXMLReader* SharedFileSystem::createXMLReader(IReadFile* file)
 		{
 			return irrgame::io::createXMLReader(file);

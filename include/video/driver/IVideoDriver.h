@@ -18,7 +18,7 @@
 namespace irrgame
 {
 
-	class irrgamePlayer;
+	class IEnginePlayer;
 
 	namespace video
 	{
@@ -179,8 +179,8 @@ namespace irrgame
 				virtual bool haveError() const = 0;
 		};
 
-		//! VideoDriver creator
-		IVideoDriver* createVideoDriver(irrgamePlayer* player);
+		//! Internal function. Please do not use.
+		IVideoDriver* createVideoDriver(IEnginePlayer* player);
 
 	}
 }

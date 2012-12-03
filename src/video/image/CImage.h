@@ -33,12 +33,14 @@ namespace irrgame
 				//! destructor
 				virtual ~CImage();
 
+				//TODO: move to .cpp
 				//! Lock function.
 				virtual void* lock()
 				{
 					return Data;
 				}
 
+				//TODO: move to .cpp
 				//! Unlock function.
 				virtual void unlock()
 				{

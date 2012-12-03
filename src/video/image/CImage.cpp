@@ -596,8 +596,8 @@ namespace irrgame
 			}
 		}
 
-		//! IImage creator
-		IImage* IImage::createImage(io::IReadFile* file)
+		//! IImage creator. Internal function. Please do not use.
+		IImage* createImage(io::IReadFile* file)
 		{
 			IRR_ASSERT(file);
 
@@ -616,7 +616,7 @@ namespace irrgame
 			{
 				result = SharedImageLoaderJpg::getInstance().createImage(file);
 			}
-			else if(extension->equalsIgnoreCase("png"))
+			else if (extension->equalsIgnoreCase("png"))
 			{
 				result = SharedImageLoaderPng::getInstance().createImage(file);
 			}
@@ -634,17 +634,15 @@ namespace irrgame
 			return result;
 		}
 
-		//! Empty image creator;
-		IImage* IImage::createEmptyImage(EColorFormat format,
-				const dimension2du& size)
+		//! Empty image creator. Internal function. Please do not use.
+		IImage* createEmptyImage(EColorFormat format, const dimension2du& size)
 		{
 			return new CImage(format, size);
 		}
 
-		//! Create image from raw data
-		IImage* IImage::createRawImage(EColorFormat format,
-				const dimension2du& size, void* data, bool ownForeignMemory,
-				bool deleteMemory)
+		//! Create image from raw data. Internal function. Please do not use.
+		IImage* createRawImage(EColorFormat format, const dimension2du& size,
+				void* data, bool ownForeignMemory, bool deleteMemory)
 		{
 			return new CImage(format, size, data, ownForeignMemory,
 					deleteMemory);

@@ -21,14 +21,14 @@ namespace irrgame
 		//register timer for tick
 		void ITimer::registerTimer(ITimer* timer)
 		{
-			IRR_ASSERT(timer != 0);
+			IRR_ASSERT(timer);
 			RegisteredTimers.pushBack(timer);
 		}
 
 		//unregister timer. This mean for specify timer there wil be no call tick.
 		void ITimer::unregisterTimer(ITimer* timer)
 		{
-			IRR_ASSERT(timer != 0);
+			IRR_ASSERT(timer);
 			RegisteredTimers.remove(timer);
 		}
 

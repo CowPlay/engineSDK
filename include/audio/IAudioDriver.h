@@ -1,0 +1,34 @@
+/*
+ * IAudioDriver.h
+ *
+ *  Created on: Oct 29, 2012
+ *      Author: litirvi
+ */
+
+#ifndef IAUDIODRIVER_H_
+#define IAUDIODRIVER_H_
+
+#include "core/collections/stringc.h"
+
+namespace irrgame
+{
+	namespace audio
+	{
+		//! TODO: comment
+		class IAudioDriver: public IReferenceCounted
+		{
+			public:
+
+				//! Destructor
+				virtual ~IAudioDriver()
+				{
+				}
+		};
+
+		//! Internal function. Please do not use.
+		IAudioDriver* createAudioDriver();
+
+	} // end namespace audio
+} // end namespace irrgame
+
+#endif /* IAUDIODRIVER_H_ */

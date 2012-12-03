@@ -22,7 +22,7 @@ namespace irrgame
 			//			irrgameApp(irrgamePlayer* player);
 
 			//! Destructor
-			virtual ~irrgameApp()
+			virtual ~IEngineApplication()
 			{
 			}
 

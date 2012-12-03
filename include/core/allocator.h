@@ -9,7 +9,7 @@
 #define SDKALLOCATOR_H_
 
 #include "core/allocator/EAllocStrategy.h"
-#include "core/allocator/irrAllocator.h"
-#include "core/allocator/irrAllocatorFast.h"
+#include "core/allocator/allocator.h"
+#include "core/allocator/allocatorFast.h"
 
 #endif /* SDKALLOCATOR_H_ */

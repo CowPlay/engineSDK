@@ -179,7 +179,7 @@ namespace irrgame
 			IImage* result = 0;
 			if (useCMYK)
 			{
-				result = IImage::createEmptyImage(ECF_R8G8B8,
+				result = createEmptyImage(ECF_R8G8B8,
 						dimension2du(width, height));
 
 				const u32 size = 3 * width * height;
@@ -205,7 +205,7 @@ namespace irrgame
 			}
 			else
 			{
-				result = IImage::createRawImage(ECF_R8G8B8,
+				result = createRawImage(ECF_R8G8B8,
 						dimension2du(width, height), output);
 			}
 

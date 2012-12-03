@@ -67,14 +67,14 @@ namespace irrgame
 			(*callback1) += NewDelegate(this,
 					&SharedEventScheduler::proceedHPEvents);
 
-			IThread* thread1 = IThread::createIrrgameThread(callback1, 0,
+			IThread* thread1 = IThread::createThread(callback1, 0,
 					ETP_NORMAL);
 
 			delegateThreadCallback* callback2 = new delegateThreadCallback;
 			(*callback2) += NewDelegate(this,
 					&SharedEventScheduler::proceedBGEvents);
 
-			IThread* thread2 = IThread::createIrrgameThread(callback2, 0, ETP_LOW);
+			IThread* thread2 = IThread::createThread(callback2, 0, ETP_LOW);
 
 			thread1->start();
 			thread2->start();

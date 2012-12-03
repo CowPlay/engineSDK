@@ -28,7 +28,7 @@ namespace irrgame
 
 			public:
 				//! IThread creator
-				static IThread* createIrrgameThread(delegateThreadCallback* callback,
+				static IThread* createThread(delegateThreadCallback* callback,
 						void* callbackArg = 0, EThreadPriority prior =
 								ETP_NORMAL);
 
@@ -61,7 +61,8 @@ namespace irrgame
 
 				//! Causes the operating system to kill thread
 				//! Platform dependent
-				virtual void kill() = 0;
+				//TODO: implement it
+//				virtual void kill() = 0;
 
 				//! Gets thread callback
 				virtual delegateThreadCallback* getCallback();

@@ -12,13 +12,6 @@
 #define COMPILECONFIGLINUX_H_
 
 /*
- * Target OS.
- * For select target OS please uncomment specify define.
- */
-#define TARGET_OS_LINUX
-//#define TARGET_OS_ANDROID
-
-/*
  * Fundamental types. This typedefs ensures portability of the engine.
  */
 
@@ -75,10 +68,6 @@ typedef float f32;
  * io
  */
 #define LINEBREAK "\r"
-
-/*
- * Not used in Linux
- */
 
 #endif /* COMPILECONFIGLINUX_H_ */
 

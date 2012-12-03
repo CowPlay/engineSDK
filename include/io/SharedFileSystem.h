@@ -8,11 +8,12 @@
 #include "io/xml/IXMLReader.h"
 #include "io/xml/IXMLWriter.h"
 #include "io/SPath.h"
-//#include "io/IArchiveLoader.h"
 #include "io/IFileArchive.h"
 #include "io/IReadFile.h"
 #include "io/IWriteFile.h"
 #include "io/EFileSystemTypes.h"
+//#include "io/IArchiveLoader.h"
+
 namespace irrgame
 {
 	namespace io

@@ -101,8 +101,7 @@ namespace irrgame
 		}
 
 		//! Returns current speed of the timer
-		/** The speed is the factor with which the time is running faster or
-		 slower then the real system time. */
+
 		f32 CTimer::getSpeed() const
 		{
 			Monitor->enter();

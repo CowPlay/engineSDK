@@ -17,18 +17,19 @@
  * Constants
  */
 
-const c8* XMLTagConfig = "config";
-const c8* XMLTagApplication = "application";
-const c8* XMLTagAttributes = "attributes";
+//We use attribute "unused" for disable warnings
+__attribute__ ((unused)) static const c8* XMLTagConfig = "config";
+__attribute__ ((unused)) static const c8* XMLTagApplication = "application";
+__attribute__ ((unused)) static const c8* XMLTagAttributes = "attributes";
 
-const c8* XMLAttrAppFile = "appFile";
-const c8* XMLAttrAppCreator = "appCreator";
+__attribute__ ((unused)) static const c8* XMLAttrAppFile = "appFile";
+__attribute__ ((unused)) static const c8* XMLAttrAppCreator = "appCreator";
 
 //Use in collections
-const s32 IrrNotFound = -1;
+static const s32 IrrNotFound = -1;
 
 //! Maximum number of texture an SMaterial can have, up to 8 are supported by Irrlicht.
-const u32 MaterialMaxTextures = 4;
+static const u32 MaterialMaxTextures = 4;
 
 /*
  * creates four CC codes used in Irrlicht for simple ids

@@ -1,5 +1,5 @@
 /*
- * irrgameThread.cpp
+ * IThread.cpp
  *
  *  Created on: Aug 13, 2012
  *      Author: gregorytkach asdasd

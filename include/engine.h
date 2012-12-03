@@ -9,8 +9,8 @@
 #define IRRGAME_H_
 
 #include "compileConfig.h"
-#include "irrgameApp.h"
-#include "irrgamePlayer.h"
+#include "IEngineApplication.h"
+#include "IEnginePlayer.h"
 
 //events
 #include "events/EEventTypes.h"
@@ -31,13 +31,13 @@
 #include "events/user/SCursorInfo.h"
 
 //core
-#include "core/irrgamecollections.h"
-#include "core/irrgamemath.h"
-#include "core/irrgameshapes.h"
+#include "core/collections.h"
+#include "core/math.h"
+#include "core/shapes.h"
 #include "core/delegate.h"
 
 //io
-#include "io/utils/ioutils.h"
+#include "io/utils/StaticIOUtils.h"
 #include "io/SharedFileSystem.h"
 #include "io/IReadFile.h"
 #include "io/IWriteFile.h"
@@ -54,11 +54,10 @@
 
 //threads
 
-#include "threads/irrgameMonitor.h"
-#include "threads/irrgameThread.h"
+#include "threads/IMonitor.h"
+#include "threads/IThread.h"
 
 //video
-#include "video/utils/AbsRectangle.h"
 #include "video/utils/SharedVideoUtils.h"
 #include "video/driver/IVideoDriver.h"
 #include "video/color.h"

@@ -8,22 +8,13 @@
 #include "video/driver/IVideoModeList.h"
 #include "core/shapes.h"
 #include "core/collections.h"
+#include "SVideoMode.h"
 
 namespace irrgame
 {
 	namespace video
 	{
 
-		struct SVideoMode
-		{
-			public:
-				dimension2du Size;
-				s32 Depth;
-
-			public:
-				bool operator==(const SVideoMode& other) const;
-				bool operator <(const SVideoMode& other) const;
-		};
 		class CVideoModeList: public IVideoModeList
 		{
 			public:

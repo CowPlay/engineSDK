@@ -15,6 +15,7 @@ namespace irrgame
 {
 	namespace io
 	{
+
 		class CPlayerConfigReader: public IPlayerConfigReader
 		{
 			public:
@@ -27,7 +28,7 @@ namespace irrgame
 
 				virtual void read(const c8* file);
 
-				//! Gets enty which contains data from config
+				//! Gets entry which contains data from config
 				virtual SPlayerConfigEntry* getEntry();
 
 			protected:
@@ -38,6 +39,7 @@ namespace irrgame
 				IXMLReader* XMLReader;
 				SPlayerConfigEntry* Entry;
 		};
+
 	}
 }
 

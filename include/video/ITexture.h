@@ -6,8 +6,8 @@
 #define __I_TEXTURE_H_INCLUDED__
 
 #include "core/engine/IReferenceCounted.h"
-#include "core/irrgamecollections.h"
-#include "core/irrgameshapes.h"
+#include "core/collections.h"
+#include "core/shapes.h"
 
 //#include "IImage.h"
 #include "video/driver/EDriverType.h"

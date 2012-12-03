@@ -8,7 +8,7 @@
 #ifndef IENGINEPLAYER_H_
 #define IENGINEPLAYER_H_
 
-#include "playerCompileConfig.h"
+#include "compileConfig.h"
 #include "io/SPath.h"
 #include "io/config/IPlayerConfigReader.h"
 #include "IEngineApplication.h"
@@ -35,11 +35,22 @@ namespace irrgame
 		class IVideoDriver;
 	}  // namespace video
 
-	class irrgameApp;
+	class IEngineApplication;
 
 	//! Interface of most important object in irrgame.
 	class IEnginePlayer: public IReferenceCounted
 	{
+
+			/*
+			 * Static functions
+			 */
+		public:
+			//! Player creator
+			static IEnginePlayer* createEnginePlayer();
+
+			/*
+			 * Instance methods
+			 */
 		public:
 
 			//! Destructor
@@ -47,35 +58,33 @@ namespace irrgame
 			{
 			}
 
-			//! Gets pointer to config reader
-			//! @return - pointer to config reader
-			virtual io::IPlayerConfigReader* getConfigReader() = 0;
-
-			virtual scene::ISceneManager* getSceneManager() = 0;
-
-			virtual video::IVideoDriver* getVideoDriver() = 0;
-
-			//! Returns user event receiver
-			/* If you want handle any user event - you must work with this object.
-			 * */
-			virtual events::IUserEventHandler* getUserEventsHandler() = 0;
-
-			virtual void run(irrgameApp* application) = 0;
-
-			//! This func need for flush OpenGL context
-			virtual void flush() = 0;
-
-			//get application
-
-		protected:
-
-			//! Run player internal. Must be overriden in every realization of player.
-			//! Handle user events in this func
-			virtual bool runInternal() = 0;
+//			//! Gets pointer to config reader
+//			//! @return - pointer to config reader
+//			virtual io::IPlayerConfigReader* getConfigReader() = 0;
+//
+//			virtual scene::ISceneManager* getSceneManager() = 0;
+//
+//			virtual video::IVideoDriver* getVideoDriver() = 0;
+//
+//			//! Returns user event receiver
+//			/* If you want handle any user event - you must work with this object.
+//			 * */
+//			virtual events::IUserEventHandler* getUserEventsHandler() = 0;
+//
+//			virtual void run(IEngineApplication* application) = 0;
+//
+//			//! This func need for flush OpenGL context
+//			virtual void flush() = 0;
+//
+//			//get application
+//
+//		protected:
+//
+//			//! Run player internal. Must be overriden in every realization of player.
+//			//! Handle user events in this func
+//			virtual bool runInternal() = 0;
 	};
 
-	//! irrgamePlayer creator
-	irrgamePlayer* createIrrgamePlayer();
 }
 
 #endif /* IENGINEPLAYER_H_ */

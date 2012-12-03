@@ -8,6 +8,7 @@
 #ifndef ITERATORS_H_
 #define ITERATORS_H_
 
+#include "compileConfig.h"
 #include "core/collections/list/SKListNode.h"
 
 namespace irrgame

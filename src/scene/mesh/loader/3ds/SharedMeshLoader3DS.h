@@ -38,9 +38,6 @@ namespace irrgame
 
 			public:
 
-//				//! Returns PNG image
-//				IImage* createImage(io::IReadFile* file);
-
 		};
 
 	} /* namespace scene */

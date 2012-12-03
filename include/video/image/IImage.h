@@ -34,27 +34,6 @@ namespace irrgame
 		 */
 		class IImage: public virtual IReferenceCounted
 		{
-				/*
-				 * Static methods
-				 */
-			public:
-
-				//! Image creator;
-				static IImage* createImage(io::IReadFile* file);
-
-				//! Create image from raw data
-				static IImage* createRawImage(EColorFormat format,
-						const dimension2du& size, void* data,
-						bool ownForeignMemory = true, bool deleteMemory = true);
-
-				//! Empty image creator;
-				static IImage* createEmptyImage(EColorFormat format,
-						const dimension2du& size);
-
-				/*
-				 * Instance methods
-				 */
-
 			public:
 
 				//! Lock function. Use this to get a pointer to the image data.
@@ -137,6 +116,17 @@ namespace irrgame
 				//! fills the surface with black or white
 				virtual void fill(const SColor &color) = 0;
 		};
+
+		//! Create image from file. Internal function. Please do not use.
+		IImage* createImage(io::IReadFile* file);
+
+		//! Create image from raw data. Internal function. Please do not use.
+		IImage* createRawImage(EColorFormat format, const dimension2du& size,
+				void* data, bool ownForeignMemory = true, bool deleteMemory =
+						true);
+
+		//! Empty image creator. Internal function. Please do not use.
+		IImage* createEmptyImage(EColorFormat format, const dimension2du& size);
 
 	} // end namespace video
 } // end namespace irr
