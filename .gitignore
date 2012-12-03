@@ -12,12 +12,11 @@
 *.la
 *.a
 
-#Linux
-DebugLinux/**
-ReleaseLinux/**
-
-
-#OSX
-.DS_Store
+# OSX
+*.DS_Store
 DebugOSX/**
 ReleaseOSX/**
+
+# linux
+DebugLinux/**
+ReleaseLinux/**

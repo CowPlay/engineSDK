@@ -83,6 +83,7 @@ namespace irrgame
 
 		//! Internal function. Please do not use.
 		IUserEventHandler* createUserEventsHandler();
+
 	}  // namespace events
 
 }  // namespace irrgame
