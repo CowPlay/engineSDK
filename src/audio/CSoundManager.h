@@ -33,13 +33,13 @@ namespace irrgame
 				 * could not be loaded. This pointer should not be dropped manually. See
 				 * IReferenceCounted::drop() for more information.
 				 */
-				virtual SAudioSource* getAudioSource(const core::stringc& path) = 0;
+				virtual SAudioSource* getAudioSource(const core::stringc& path);
 
 				//! Remove audio source from driver cache. Do not call manually!
 				/* This function must calls automatic from IAudioSource::~IAudioSource()
 				 * when specify source
 				 */
-				virtual void removeAudioSource(core::stringc& path) = 0;
+				virtual void removeAudioSource(SAudioSource* value);
 
 				//! Adds sound node to sound scene graph.
 				/* Sound node is a node in a hierarchical scene audio environment. Each node can have the
@@ -48,7 +48,7 @@ namespace irrgame
 				 * parent sound, all the children will be deleted.
 				 * Audio data from the file is completely written to memory or streamed in depends from source.
 				 */
-				ISoundNode* addSoundNode(SAudioSource* source);
+				virtual ISoundNode* addSoundNode(SAudioSource* source);
 
 				//! Returns sound listener.
 				/* The listener object defines various properties that affect processing
@@ -58,10 +58,20 @@ namespace irrgame
 				 * the sampling/pickup point and orientation, and other parameters that
 				 * affect the output stream.
 				 */
-				ISoundListener* getSoundListener();
+				virtual ISoundListener* getSoundListener();
 
 				//! Returns root node on the sound
-				ISoundNode* getRoot();
+				virtual ISoundNode* getRoot();
+
+				void play(u32 pos = 0, bool loop = false);
+				void stop();
+				void pause();
+				bool isStreamed();
+				void applyEffect(SSoundEffect* value);
+				void removeEffect(SSoundEffect* value);
+				void applyFilter(ESoundFilterType value, f32 gainLf, f32 GainHf,
+						f32 gain = 1.0);
+				void removeFilter(ESoundFilterType value);
 
 			protected:
 

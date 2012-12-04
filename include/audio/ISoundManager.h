@@ -56,13 +56,6 @@ namespace irrgame
 				 */
 				virtual ISoundNode* addSoundNode(SAudioSource* source) = 0;
 
-
-				//! Returns new sound effect by type
-				/* @return Pointer to the sound effect. After using this effect you should be call drop().
-				 * See IReferenceCounted::drop() for more information
-				 */
-				virtual SSoundEffect* createSoundEffect(ESoundEffectType type) = 0;
-
 				//! Returns sound listener.
 				/* The listener object defines various properties that affect processing
 				 * of the sound for the actual output. The listener is unique for an context,
