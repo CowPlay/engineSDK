@@ -15,6 +15,11 @@
 
 namespace irrgame
 {
+	namespace audio
+	{
+		class IAudioDriver;
+	}  // namespace audio
+
 	namespace events
 	{
 		class IUserEventHandler;
@@ -58,31 +63,30 @@ namespace irrgame
 			{
 			}
 
-//			//! Gets pointer to config reader
-//			//! @return - pointer to config reader
-//			virtual io::IPlayerConfigReader* getConfigReader() = 0;
-//
-//			virtual scene::ISceneManager* getSceneManager() = 0;
-//
-//			virtual video::IVideoDriver* getVideoDriver() = 0;
-//
-//			//! Returns user event receiver
-//			/* If you want handle any user event - you must work with this object.
-//			 * */
-//			virtual events::IUserEventHandler* getUserEventsHandler() = 0;
-//
-//			virtual void run(IEngineApplication* application) = 0;
-//
-//			//! This func need for flush OpenGL context
-//			virtual void flush() = 0;
-//
-//			//get application
-//
-//		protected:
-//
-//			//! Run player internal. Must be overriden in every realization of player.
-//			//! Handle user events in this func
-//			virtual bool runInternal() = 0;
+			//! Return pointer to current audio driver
+			virtual audio::IAudioDriver* getAudioDriver() = 0;
+
+			//! Return pointer to current video driver
+			virtual video::IVideoDriver* getVideoDriver() = 0;
+
+			//! Return pointer to config reader
+			virtual io::IPlayerConfigReader* getConfigReader() = 0;
+
+			//! Return pointer to scene manager
+			virtual scene::ISceneManager* getSceneManager() = 0;
+
+			//! Return pointer to user event handler
+			/* If you want handle any user event - you must work with this object. */
+			virtual events::IUserEventHandler* getUserEventsHandler() = 0;
+
+			//! Run engine application
+			virtual void run(IEngineApplication* application) = 0;
+
+		protected:
+
+			//! Run player internal. Must be overriden in every realization of player.
+			/* Need for handle user events, update timers etc. */
+			virtual bool runInternal() = 0;
 	};
 
 }

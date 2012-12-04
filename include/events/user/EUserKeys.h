@@ -105,7 +105,7 @@ namespace irrgame
 			EUK_DELETE = 0x7D,  // DEL key
 
 			/*
-			 * Mac keys
+			 * OSX keys
 			 */
 			EUK_CMD = 0x9A,
 
@@ -136,7 +136,7 @@ namespace irrgame
 //			KEY_EXECUT = 0x2B,  // EXECUTE key
 //			KEY_SNAPSHOT = 0x2C,  // PRINT SCREEN key
 //			KEY_HELP = 0x2F,  // HELP key
-//			KEY_LWIN = 0x5B,  // Left Windows key (Microsoft® Natural® keyboard)
+//			KEY_LWIN = 0x5B,  // Left Windows key (Microsoftï¿½ Naturalï¿½ keyboard)
 //			KEY_RWIN = 0x5C,  // Right Windows key (Natural keyboard)
 //			KEY_APPS = 0x5D,  // Applications key (Natural keyboard)
 //			KEY_SLEEP = 0x5F,  // Computer Sleep key
