@@ -66,18 +66,56 @@ namespace irrgame
 			return result;
 		}
 
-		//TODO: write comment, see ref: ISceneManager::addSceneNode()
+		void CSoundManager::removeAudioSource(SAudioSource* value)
+		{
+			IRR_ASSERT(false);
+		}
+
 		ISoundNode* CSoundManager::addSoundNode(SAudioSource* source)
 		{
 			return createSoundNode(this, source);
 		}
 
-		//TODO: write comment, see ISceneManager::getRoot
+		ISoundListener* CSoundManager::getSoundListener()
+		{
+			return Listener;
+		}
+
 		ISoundNode* CSoundManager::getRoot()
 		{
 			return this;
 		}
 
+		/*
+		 * ISoundNode stubs
+		 */
+
+		void CSoundManager::play(u32 pos, bool loop)
+		{
+		}
+		void CSoundManager::stop()
+		{
+		}
+		void CSoundManager::pause()
+		{
+		}
+		bool CSoundManager::isStreamed()
+		{
+			return false;
+		}
+		void CSoundManager::applyEffect(SSoundEffect* value)
+		{
+		}
+		void CSoundManager::removeEffect(SSoundEffect* value)
+		{
+		}
+		void CSoundManager::applyFilter(ESoundFilterType value, f32 gainLf,
+				f32 GainHf, f32 gain)
+		{
+		}
+		void CSoundManager::removeFilter(ESoundFilterType value)
+		{
+		}
 
 		//! Internal function. Please do not use.
 		ISoundManager* createSoundManager()
