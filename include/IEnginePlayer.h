@@ -18,6 +18,7 @@ namespace irrgame
 	namespace audio
 	{
 		class IAudioDriver;
+		class ISoundManager;
 	}  // namespace audio
 
 	namespace events
@@ -74,6 +75,9 @@ namespace irrgame
 
 			//! Return pointer to scene manager
 			virtual scene::ISceneManager* getSceneManager() = 0;
+
+			//! Return pointer to audio manager
+			virtual audio::ISoundManager* getSoundManager() = 0;
 
 			//! Return pointer to user event handler
 			/* If you want handle any user event - you must work with this object. */

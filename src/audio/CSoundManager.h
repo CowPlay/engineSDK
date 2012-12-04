@@ -33,7 +33,8 @@ namespace irrgame
 				 * could not be loaded. This pointer should not be dropped manually. See
 				 * IReferenceCounted::drop() for more information.
 				 */
-				virtual SAudioSource* getAudioSource(const core::stringc& path) = 0;
+				virtual SAudioSource* getAudioSource(
+						const core::stringc& path) = 0;
 
 				//! Remove audio source from driver cache. Do not call manually!
 				/* This function must calls automatic from IAudioSource::~IAudioSource()
@@ -62,6 +63,11 @@ namespace irrgame
 
 				//! Returns root node on the sound
 				ISoundNode* getRoot();
+
+				/*
+				 * ISoundNode stubs
+				 */
+				virtual void play(u32 pos, bool loop);
 
 			protected:
 

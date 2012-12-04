@@ -47,13 +47,15 @@ namespace irrgame
 
 			if (extension->equalsIgnoreCase("wav"))
 			{
-				result = SharedAudioSourceLoaderWav::getInstance().createAudioSource(
-						file, this);
+				result =
+						SharedAudioSourceLoaderWav::getInstance().createAudioSource(
+								file, this);
 			}
 			else if (extension->equalsIgnoreCase("ogg"))
 			{
-				result = SharedAudioSourceLoaderOgg::getInstance().createAudioSource(
-						file, this);
+				result =
+						SharedAudioSourceLoaderOgg::getInstance().createAudioSource(
+								file, this);
 			}
 			else
 			{
@@ -74,6 +76,13 @@ namespace irrgame
 		ISoundNode* CSoundManager::getRoot()
 		{
 			return this;
+		}
+
+
+		//! Internal function. Please do not use.
+		ISoundManager* createSoundManager()
+		{
+			return new CSoundManager;
 		}
 
 	} /* namespace audio */

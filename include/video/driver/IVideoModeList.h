@@ -39,19 +39,21 @@ namespace irrgame
 //				 \param maxSize: Maximum dimensions allowed.
 //				 \return Size of screen in pixels which matches the requirements.
 //				 as good as possible. */
-//				virtual core::dimension2d<u32> getVideoModeResolution(
-//						const core::dimension2d<u32>& minSize,
-//						const core::dimension2d<u32>& maxSize) const = 0;
+//				virtual dimension2du getVideoModeResolution(
+//						const dimension2du& minSize,
+//						const dimension2du& maxSize) const = 0;
 //
 //				//! Get the pixel depth of a video mode in bits.
 //				/** \param modeNumber: zero based index of the video mode.
 //				 \return Size of each pixel of the specified video mode in bits. */
 //				virtual s32 getVideoModeDepth(s32 modeNumber) const = 0;
 //
+//				//TODO: move to os operator
 //				//! Get current desktop screen resolution.
 //				/** \return Size of screen in pixels of the current desktop video mode. */
-//				virtual const core::dimension2d<u32>& getDesktopResolution() const = 0;
+//				virtual const dimension2du& getDesktopResolution() const = 0;
 //
+//				//TODO: move to os operator
 //				//! Get the pixel depth of a video mode in bits.
 //				/** \return Size of each pixel of the current desktop video mode in bits. */
 //				virtual s32 getDesktopDepth() const = 0;
