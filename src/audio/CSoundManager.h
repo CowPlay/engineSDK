@@ -73,11 +73,6 @@ namespace irrgame
 						f32 gain = 1.0);
 				void removeFilter(ESoundFilterType value);
 
-				/*
-				 * ISoundNode stubs
-				 */
-				virtual void play(u32 pos, bool loop);
-
 			protected:
 
 				ISoundListener* Listener;
