@@ -34,22 +34,21 @@ namespace irrgame
 		{
 		}
 
-		//TODO: implement
-//		//! Creates a XML Reader from a file which returns all parsed strings as ASCII/UTF-8 characters (char*).
-//		IXMLReader* SharedFileSystem::createXMLReader(
-//				const core::stringc& filename)
-//		{
-//			// Create the file using an absolute path so that it matches
-//			// the scheme used by CNullDriver::getTexture().
-//			IReadFile * file = createReadFile(this->getAbsolutePath(filename));
-//
-//			IXMLReader* reader = irrgame::io::createXMLReader(file);
-//
-//			if (file)
-//				file->drop();
-//
-//			return reader;
-//		}
+		//! Creates a XML Reader from a file which returns all parsed strings as ASCII/UTF-8 characters (char*).
+		IXMLReader* SharedFileSystem::createXMLReader(
+				const core::stringc& filename)
+		{
+			// Create the file using an absolute path so that it matches
+			// the scheme used by CNullDriver::getTexture().
+			IReadFile * file = createReadFile(this->getAbsolutePath(filename));
+
+			IXMLReader* reader = irrgame::io::createXMLReader(file);
+
+			if (file)
+				file->drop();
+
+			return reader;
+		}
 
 		//! Creates a XML Reader from a file which returns all parsed strings as ASCII/UTF-8 characters (char*).
 

@@ -53,7 +53,7 @@ namespace irrgame
 				 IXMLReader is returned. After use, the reader
 				 has to be deleted using its IXMLReader::drop() method.
 				 See IReferenceCounted::drop() for more information. */
-//				IXMLReader* createXMLReader(const core::stringc& filename);
+				IXMLReader* createXMLReader(const core::stringc& filename);
 
 				//! Creates a XML Reader from a file which returns all parsed strings as ASCII/UTF-8 characters (char*).
 				/** See IXMLReader for more information on how to use the parser.

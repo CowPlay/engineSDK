@@ -33,18 +33,11 @@ namespace irrgame
 				//! destructor
 				virtual ~CImage();
 
-				//TODO: move to .cpp
 				//! Lock function.
-				virtual void* lock()
-				{
-					return Data;
-				}
+				virtual void* lock();
 
-				//TODO: move to .cpp
 				//! Unlock function.
-				virtual void unlock()
-				{
-				}
+				virtual void unlock();
 
 				//! Returns width and height of image data.
 				virtual const dimension2du& getDimension() const;

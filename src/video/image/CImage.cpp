@@ -82,6 +82,17 @@ namespace irrgame
 			}
 		}
 
+		//! Lock function.
+		void* CImage::lock()
+		{
+			return Data;
+		}
+
+		//! Unlock function.
+		void CImage::unlock()
+		{
+		}
+
 		//! Returns width and height of image data.
 		const dimension2du& CImage::getDimension() const
 		{
