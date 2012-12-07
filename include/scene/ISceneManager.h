@@ -8,7 +8,7 @@
 #ifndef ISCENEMANAGER_H_
 #define ISCENEMANAGER_H_
 
-#include "core/engine/IReferenceCounted.h"
+#include "core/engine/IReferenceCountedSafe.h"
 
 namespace irrgame
 {
@@ -20,7 +20,7 @@ namespace irrgame
 		//! Scene manager interface.
 		/*
 		 */
-		class ISceneManager : public IReferenceCounted
+		class ISceneManager : public IReferenceCountedSafe
 		{
 			public:
 

@@ -12,7 +12,7 @@
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in irrlicht.h
 
-#include "core/engine/IReferenceCounted.h"
+#include "core/engine/IReferenceCountedSafe.h"
 #include "video/color/EColorFormat.h"
 #include "video/color/SColor.h"
 #include "core/shapes/dimension2d.h"
@@ -32,7 +32,7 @@ namespace irrgame
 		/** Image loaders create these images from files. IVideoDrivers convert
 		 these images into their (hardware) textures.
 		 */
-		class IImage: public virtual IReferenceCounted
+		class IImage: public virtual IReferenceCountedSafe
 		{
 			public:
 

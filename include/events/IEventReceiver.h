@@ -22,7 +22,7 @@ namespace irrgame
 
 		//! Interface of an object which can receive events.
 		/** Every object which want handle user event must implement this interface */
-		class IEventReceiver: public IReferenceCounted
+		class IEventReceiver: public IReferenceCountedSafe
 		{
 			public:
 

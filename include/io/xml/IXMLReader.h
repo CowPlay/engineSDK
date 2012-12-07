@@ -5,7 +5,7 @@
 #ifndef IRRXMLREADER_H_
 #define IRRXMLREADER_H_
 #include "EXmlNodeTypes.h"
-#include "core/engine/IReferenceCounted.h"
+#include "core/engine/IReferenceCountedSafe.h"
 
 namespace irrgame
 {
@@ -24,7 +24,7 @@ namespace irrgame
 
 		//! Interface providing easy read access to a XML file.
 		// Output format can UTF8 or ASCII
-		class IXMLReader: public IReferenceCounted
+		class IXMLReader: public IReferenceCountedSafe
 		{
 			public:
 

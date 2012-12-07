@@ -8,7 +8,7 @@
 #ifndef ISOUNDLISTENER_H_
 #define ISOUNDLISTENER_H_
 
-#include "core/engine/IReferenceCounted.h"
+#include "core/engine/IReferenceCountedSafe.h"
 #include "core/shapes/vector3d.h"
 
 namespace irrgame
@@ -20,7 +20,7 @@ namespace irrgame
 		/* There is always one Listener object (per audio context), which represents the position where the
 		 *  sources are heard - rendering is done from the perspective of the Listener.
 		 */
-		class ISoundListener: public IReferenceCounted
+		class ISoundListener: public IReferenceCountedSafe
 		{
 			public:
 

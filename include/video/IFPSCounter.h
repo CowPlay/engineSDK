@@ -8,7 +8,7 @@
 #ifndef IFPSCOUNTER_H_
 #define IFPSCOUNTER_H_
 
-#include "core/engine/IReferenceCounted.h"
+#include "core/engine/IReferenceCountedSafe.h"
 
 namespace irrgame
 {
@@ -16,7 +16,7 @@ namespace irrgame
 	namespace video
 	{
 
-		class IFPSCounter: public IReferenceCounted
+		class IFPSCounter: public IReferenceCountedSafe
 		{
 			public:
 				//! Destructor

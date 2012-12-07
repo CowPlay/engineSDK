@@ -8,7 +8,7 @@
 #ifndef SSOUNDEFFECT_H_
 #define SSOUNDEFFECT_H_
 
-#include "core/engine/IReferenceCounted.h"
+#include "core/engine/IReferenceCountedSafe.h"
 #include "audio/sfx/ESoundEffectType.h"
 
 namespace irrgame
@@ -16,7 +16,7 @@ namespace irrgame
 	namespace audio
 	{
 		//! Base type for sound effects
-		struct SSoundEffect: public IReferenceCounted
+		struct SSoundEffect: public IReferenceCountedSafe
 		{
 			public:
 				//! Destructor

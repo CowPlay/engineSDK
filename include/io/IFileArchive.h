@@ -16,7 +16,7 @@ namespace irrgame
 	{
 
 		//! The FileArchive manages archives and provides access to files inside them.
-		class IFileArchive: public virtual IReferenceCounted
+		class IFileArchive: public virtual IReferenceCountedSafe
 		{
 			public:
 

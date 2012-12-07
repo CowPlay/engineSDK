@@ -9,14 +9,14 @@
 #define ICONFIGREADER_H_
 
 #include "compileConfig.h"
-#include "core/engine/IReferenceCounted.h"
+#include "core/engine/IReferenceCountedSafe.h"
 
 namespace irrgame
 {
 	namespace io
 	{
 		//! Provide interface for read config from xml file
-		class IConfigReader: public IReferenceCounted
+		class IConfigReader: public IReferenceCountedSafe
 		{
 			public:
 				//! Destructor

@@ -8,7 +8,7 @@
 #ifndef ISOUNDMANAGER_H_
 #define ISOUNDMANAGER_H_
 
-#include "core/engine/IReferenceCounted.h"
+#include "core/engine/IReferenceCountedSafe.h"
 #include "core/collections/stringc.h"
 #include "sfx/ESoundEffectType.h"
 
@@ -26,7 +26,7 @@ namespace irrgame
 		/* Manager should manipulate with audio sources, sound nodes
 		 *
 		 */
-		class ISoundManager: public IReferenceCounted
+		class ISoundManager: public IReferenceCountedSafe
 		{
 			public:
 

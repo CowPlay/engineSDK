@@ -5,7 +5,7 @@
 #ifndef __I_ATTRIBUTE_H_INCLUDED__
 #define __I_ATTRIBUTE_H_INCLUDED__
 
-#include "core/engine/IReferenceCounted.h"
+#include "core/engine/IReferenceCountedSafe.h"
 
 #include "core/collections/stringc.h"
 #include "core/collections/array.h"
@@ -30,7 +30,7 @@ namespace irrgame
 	namespace io
 	{
 
-		class IAttribute: public virtual IReferenceCounted
+		class IAttribute: public virtual IReferenceCountedSafe
 		{
 				//! Interface
 			public:

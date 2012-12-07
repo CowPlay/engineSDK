@@ -1,13 +1,13 @@
 #ifndef __I_DELEGATE_H_INCLUDED__
 #define __I_DELEGATE_H_INCLUDED__
 
-#include "core/engine/IReferenceCounted.h"
+#include "core/engine/IReferenceCountedSafe.h"
 
 namespace irrgame
 {
 	//! Interface of object which contains pointer to instance method or static function
 	template<class TRet, class TParam>
-	class IMethod : public IReferenceCounted
+	class IMethod : public IReferenceCountedSafe
 	{
 		public:
 

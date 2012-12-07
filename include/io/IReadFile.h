@@ -5,7 +5,7 @@
 #ifndef __I_READ_FILE_H_INCLUDED__
 #define __I_READ_FILE_H_INCLUDED__
 
-#include "core/engine/IReferenceCounted.h"
+#include "core/engine/IReferenceCountedSafe.h"
 #include "core/collections/stringc.h"
 
 namespace irrgame
@@ -14,7 +14,7 @@ namespace irrgame
 	{
 
 		//! Interface providing read acess to a file.
-		class IReadFile: public virtual IReferenceCounted
+		class IReadFile: public virtual IReferenceCountedSafe
 		{
 			public:
 				//! Reads an amount of bytes from the file.

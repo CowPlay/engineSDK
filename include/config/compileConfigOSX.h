@@ -7,9 +7,7 @@
 
 #if defined(__APPLE__) || defined(MACOSX)
 
-#ifndef COMPILECONFIGMACOSX_H_
-#define COMPILECONFIGMACOSX_H_
-
+#ifndef DEV_OS_OSX
 #define DEV_OS_OSX
 
 /*
@@ -80,7 +78,7 @@ typedef float f32;
  */
 #define _IRR_IMPLEMENT_MANAGED_MARSHALLING_BUGFIX
 
-#endif /* COMPILECONFIGMACOSX_H_ */
+#endif /* DEV_OS_OSX */
 
 #endif /*defined(__APPLE__) || defined(MACOSX) */
 

@@ -30,7 +30,7 @@ namespace irrgame
 	namespace io
 	{
 		//! Provides a generic interface for attributes and their values and the possiblity to serialize them
-		class IAttributes: public virtual IReferenceCounted
+		class IAttributes: public virtual IReferenceCountedSafe
 		{
 			public:
 

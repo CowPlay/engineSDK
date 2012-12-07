@@ -21,7 +21,7 @@ namespace irrgame
 
 		//! Interface for providing access to raw data from audio file.
 		//! Also have few methods for work with streamed audio.
-		struct SAudioSource: public IReferenceCounted
+		struct SAudioSource: public IReferenceCountedSafe
 		{
 
 			public:

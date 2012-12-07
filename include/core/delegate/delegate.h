@@ -9,7 +9,7 @@ namespace irrgame
 {
 	//! Class which contains pointers to few functions(static or instance) with one non-void(!) parameter. Also function must return non-void result.
 	template<class TRet, class TParam>
-	class delegate: public IReferenceCounted
+	class delegate: public IReferenceCountedSafe
 	{
 		public:
 			typedef IMethod<TRet, TParam> Method;

@@ -8,9 +8,7 @@
 
 #if defined(__linux) || defined(linux)
 
-#ifndef COMPILECONFIGLINUX_H_
-#define COMPILECONFIGLINUX_H_
-
+#ifndef DEV_OS_LINUX
 #define DEV_OS_LINUX
 
 /*
@@ -71,6 +69,6 @@ typedef float f32;
  */
 #define LINEBREAK "\r"
 
-#endif /* COMPILECONFIGLINUX_H_ */
+#endif /* DEV_OS_LINUX */
 
 #endif /* defined(__linux) || defined(linux) */

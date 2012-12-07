@@ -44,7 +44,7 @@ namespace irrgame
 	class IEngineApplication;
 
 	//! Interface of most important object in irrgame.
-	class IEnginePlayer: public IReferenceCounted
+	class IEnginePlayer: public IReferenceCountedSafe
 	{
 
 			/*

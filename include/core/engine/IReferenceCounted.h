@@ -1,20 +1,19 @@
-// Copyright (C) 2002-2009 Nikolaus Gebhardt
-// This file is part of the "Irrlicht Engine".
-// For conditions of distribution and use, see copyright notice in irrlicht.h
+/*
+ * IReferenceCounted.h
+ *
+ *  Created on: Dec 7, 2012
+ *      Author: developer08
+ */
 
-#ifndef __I_IREFERENCE_COUNTED_H_INCLUDED__
-#define __I_IREFERENCE_COUNTED_H_INCLUDED__
+#ifndef IREFERENCECOUNTED_H_
+#define IREFERENCECOUNTED_H_
 
 #include "compileConfig.h"
 
 namespace irrgame
 {
-	namespace threads
-	{
-		class IMonitor;
-	}
-
 	//! Base class of most objects of the Irrlicht Engine.
+	//! WARNING: This version isn't threadsafe. Please use IReferenceCountedSafe
 	/** This class provides reference counting through the methods grab() and drop().
 	 It also is able to store a debug string for every instance of an object.
 	 Most objects of the Irrlicht
@@ -45,8 +44,7 @@ namespace irrgame
 	class IReferenceCounted
 	{
 		public:
-
-			//! Constructor.
+			//! Default constructor
 			IReferenceCounted();
 
 			//! Destructor.
@@ -82,7 +80,7 @@ namespace irrgame
 			 You will not have to drop the pointer to the loaded texture,
 			 because the name of the method does not start with 'create'.
 			 The texture is stored somewhere by the driver. */
-			void grab() const;
+			virtual void grab() const;
 
 			//! Drops the object. Decrements the reference counter by one.
 			/** The IReferenceCounted class provides a basic reference
@@ -112,7 +110,7 @@ namespace irrgame
 			 because the name of the method does not start with 'create'.
 			 The texture is stored somewhere by the driver.
 			 \return True, if the object was deleted. */
-			bool drop() const;
+			virtual bool drop() const;
 
 			//! Get the reference count.
 			/** \return Current value of the reference counter. */
@@ -132,7 +130,7 @@ namespace irrgame
 			 \param newName: New debug name to set. */
 			void setDebugName(const c8* newName);
 
-		private:
+		protected:
 
 			//! The debug name.
 			const c8* DebugName;
@@ -140,11 +138,7 @@ namespace irrgame
 			//! The reference counter. Mutable to do reference counting on const objects.
 			mutable s32 ReferenceCounter;
 
-			//! The thread locker.
-			threads::IMonitor* Monitor;
 	};
+}  // namespace irrgame
 
-} // end namespace irr
-
-#endif
-
+#endif /* IREFERENCECOUNTED_H_ */

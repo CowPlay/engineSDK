@@ -8,7 +8,7 @@
 #ifndef IEVENT_H_
 #define IEVENT_H_
 
-#include "core/engine/IReferenceCounted.h"
+#include "core/engine/IReferenceCountedSafe.h"
 #include "events/EEventTypes.h"
 
 namespace irrgame
@@ -17,7 +17,7 @@ namespace irrgame
 	{
 
 		//! Base class for all events
-		class IEvent: public IReferenceCounted
+		class IEvent: public IReferenceCountedSafe
 		{
 			public:
 

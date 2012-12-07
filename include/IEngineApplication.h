@@ -8,13 +8,13 @@
 #ifndef IENGINEAPPLICATION_H_
 #define IENGINEAPPLICATION_H_
 
-#include "core/engine/IReferenceCounted.h"
+#include "core/engine/IReferenceCountedSafe.h"
 
 namespace irrgame
 {
 	class IEnginePlayer;
 
-	class IEngineApplication: public IReferenceCounted
+	class IEngineApplication: public IReferenceCountedSafe
 	{
 
 		public:

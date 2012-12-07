@@ -9,7 +9,7 @@
 #define ILEAFNODE_H_
 
 #include "core/collections/list/list.h"
-#include "core/engine/IReferenceCounted.h"
+#include "core/engine/IReferenceCountedSafe.h"
 
 namespace irrgame
 {
@@ -19,7 +19,7 @@ namespace irrgame
 		/** A leaf node is a node in the some hierarchical graph. Every leaf
 		 node may have children, which are also leaf nodes. */
 		template<class T>
-		class ILeafNode: public IReferenceCounted
+		class ILeafNode: public IReferenceCountedSafe
 		{
 			public:
 				typedef ILeafNode<T> LeafNode;

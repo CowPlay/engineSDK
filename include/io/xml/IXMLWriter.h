@@ -5,7 +5,7 @@
 #ifndef __I_XML_WRITER_H_INCLUDED__
 #define __I_XML_WRITER_H_INCLUDED__
 
-#include "core/engine/IReferenceCounted.h"
+#include "core/engine/IReferenceCountedSafe.h"
 #include "core/collections/array.h"
 
 namespace irrgame
@@ -17,7 +17,7 @@ namespace irrgame
 		//! Interface providing methods for making it easier to write XML files.
 		/** This XML Writer writes xml files using in the platform dependent
 		 wchar_t format and sets the xml-encoding correspondingly. */
-		class IXMLWriter: public virtual IReferenceCounted
+		class IXMLWriter: public virtual IReferenceCountedSafe
 		{
 			public:
 

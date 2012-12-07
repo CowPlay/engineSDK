@@ -1,37 +1,30 @@
 /*
  * IReferenceCounted.cpp
  *
- *  Created on: Aug 14, 2012
- *      Author: gregorytkach
+ *  Created on: Dec 7, 2012
+ *      Author: developer08
  */
 
 #include "core/engine/IReferenceCounted.h"
-#include "threads/IThread.h"
-#include "threads/IMonitor.h"
 
 namespace irrgame
 {
 
-	//! Constructor.
+	//! Default constructor.
 	IReferenceCounted::IReferenceCounted() :
 			DebugName(0), ReferenceCounter(1)
 	{
-		Monitor = threads::IMonitor::createMonitor();
 	}
 
 	//! Destructor.
 	IReferenceCounted::~IReferenceCounted()
 	{
-		if (Monitor)
-			Monitor->drop();
 	}
 
 	//! Grabs the object. Increments the reference counter by one.
 	void IReferenceCounted::grab() const
 	{
-		Monitor->enter();
 		++ReferenceCounter;
-		Monitor->exit();
 	}
 
 	//! Drops the object. Decrements the reference counter by one.
@@ -40,9 +33,7 @@ namespace irrgame
 		// someone is doing bad reference counting.
 		IRR_ASSERT(ReferenceCounter > 0)
 
-		Monitor->enter();
 		--ReferenceCounter;
-		Monitor->exit();
 
 		if (!ReferenceCounter)
 		{
@@ -70,5 +61,5 @@ namespace irrgame
 	{
 		DebugName = newName;
 	}
-}
 
+}  // namespace irrgame

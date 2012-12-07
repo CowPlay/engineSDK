@@ -17,7 +17,7 @@ namespace irrgame
 	namespace utils
 	{
 		//! Interface for getting and manipulating the virtual time
-		class ITimer: public IReferenceCounted
+		class ITimer: public IReferenceCountedSafe
 		{
 			public:
 

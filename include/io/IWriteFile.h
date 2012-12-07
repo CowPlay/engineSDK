@@ -6,7 +6,7 @@
 #define __I_WRITE_FILE_H_INCLUDED__
 
 #include "SPath.h"
-#include "core/engine/IReferenceCounted.h"
+#include "core/engine/IReferenceCountedSafe.h"
 
 namespace irrgame
 {
@@ -14,7 +14,7 @@ namespace irrgame
 	{
 
 		//! Interface providing write access to a file.
-		class IWriteFile: public virtual IReferenceCounted
+		class IWriteFile: public virtual IReferenceCountedSafe
 		{
 			public:
 				//! Writes an amount of bytes to the file.

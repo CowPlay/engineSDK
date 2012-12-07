@@ -17,7 +17,7 @@ namespace irrgame
 	namespace video
 	{
 
-		class FogEntry: public IReferenceCounted
+		class FogEntry: public IReferenceCountedSafe
 		{
 			public:
 

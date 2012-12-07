@@ -22,7 +22,7 @@ namespace irrgame
 		/** Can be used to extend the engine with new materials. Refer to
 		 IVideoDriver::addMaterialRenderer() for more informations on how to extend the
 		 engine with new materials. */
-		class IMaterialRenderer: public virtual IReferenceCounted
+		class IMaterialRenderer: public virtual IReferenceCountedSafe
 		{
 			public:
 				/*

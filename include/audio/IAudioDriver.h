@@ -8,6 +8,7 @@
 #ifndef IAUDIODRIVER_H_
 #define IAUDIODRIVER_H_
 
+#include "core/engine/IReferenceCountedSafe.h"
 #include "core/collections/stringc.h"
 
 namespace irrgame
@@ -15,7 +16,7 @@ namespace irrgame
 	namespace audio
 	{
 		//! Interface to currently used audio driver.
-		class IAudioDriver: public IReferenceCounted
+		class IAudioDriver: public IReferenceCountedSafe
 		{
 			public:
 

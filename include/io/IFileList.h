@@ -6,7 +6,7 @@
 #define __I_FILE_LIST_H_INCLUDED__
 
 #include "compileConfig.h"
-#include "core/engine/IReferenceCounted.h"
+#include "core/engine/IReferenceCountedSafe.h"
 #include "io/SPath.h"
 #include "SFileListEntry.h"
 
@@ -17,7 +17,7 @@ namespace irrgame
 		//! Provides a list of files and folders.
 		/** File lists usually contain a list of all files in a given folder,
 		 but can also contain a complete directory structure. */
-		class IFileList: public IReferenceCounted
+		class IFileList: public IReferenceCountedSafe
 		{
 			public:
 

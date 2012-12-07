@@ -24,7 +24,7 @@ namespace irrgame
 	{
 		class ITexture;
 
-		class IVideoDriver: public IReferenceCounted
+		class IVideoDriver: public IReferenceCountedSafe
 		{
 			public:
 				//! Destructor

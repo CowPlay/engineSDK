@@ -8,6 +8,7 @@
 #ifndef ITHREAD_H_
 #define ITHREAD_H_
 
+#include "core/engine/IReferenceCountedSafe.h"
 #include "threads/EThreadPriority.h"
 #include "core/delegate.h"
 
@@ -20,7 +21,7 @@ namespace irrgame
 		typedef delegate<s32, void*> delegateThreadCallback;
 
 		//! Interface providing acces to system thread
-		class IThread: public IReferenceCounted
+		class IThread: public IReferenceCountedSafe
 		{
 				/*
 				 * Static functions
