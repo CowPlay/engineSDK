@@ -16,11 +16,13 @@ namespace irrgame
 		//! Enum which contains all audio formats.
 		enum EAudioFormat
 		{
-			//! Represents mono 8 bit(?) format
+			//! Represents mono 8 bit format
 			EAF_MONO8 = 0,
-
+			//! Represents mono 16 bit format
 			EAF_MONO16,
+			//! Represents stereo 8 bit format
 			EAF_STEREO8,
+			//! Represents stereo 16 bit format
 			EAF_STEREO16,
 
 			//! Not used

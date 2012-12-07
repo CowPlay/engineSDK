@@ -103,6 +103,15 @@ namespace irrgame
 		{
 			return false;
 		}
+		void CSoundManager::setVolume(f32 value)
+		{
+			Listener->setVolume(value);
+		}
+		f32 CSoundManager::getVolume()
+		{
+			return Listener->getVolume();
+		}
+
 		void CSoundManager::applyEffect(SSoundEffect* value)
 		{
 		}

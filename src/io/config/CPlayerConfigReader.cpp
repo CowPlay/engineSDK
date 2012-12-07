@@ -28,60 +28,61 @@ namespace irrgame
 
 		void CPlayerConfigReader::read(const c8* file)
 		{
-			XMLReader = SharedFileSystem::getInstance().createXMLReader(file);
-
-			Entry = new SPlayerConfigEntry();
-
-			bool configRead = false;
-
-			do
-			{
-				switch (XMLReader->getNodeType())
-				{
-					case EXNT_ELEMENT:
-					{
-						core::stringc nodeName = XMLReader->getNodeName();
-
-						if (nodeName == XMLTagApplication)
-						{
-							parseApplication(XMLReader);
-						}
-
-						break;
-					}
-					case EXNT_ELEMENT_END:
-					{
-						core::stringc nodeName = XMLReader->getNodeName();
-
-						if (nodeName == XMLTagConfig)
-						{
-							configRead = true;
-							XMLReader->read();
-						}
-
-						break;
-					}
-					case EXNT_NONE:
-					case EXNT_TEXT:
-					case EXNT_COMMENT:
-					case EXNT_CDATA:
-					case EXNT_UNKNOWN:
-					{
-						break;
-					}
-					default:
-					{
-						// Not implemented
-						IRR_ASSERT(false);
-						break;
-					}
-				}
-			} while (!configRead && XMLReader->read());
-
-			if (XMLReader)
-			{
-				XMLReader->drop();
-			}
+			//TODO: implement
+//			XMLReader = SharedFileSystem::getInstance().createXMLReader(file);
+//
+//			Entry = new SPlayerConfigEntry();
+//
+//			bool configRead = false;
+//
+//			do
+//			{
+//				switch (XMLReader->getNodeType())
+//				{
+//					case EXNT_ELEMENT:
+//					{
+//						core::stringc nodeName = XMLReader->getNodeName();
+//
+//						if (nodeName == XMLTagApplication)
+//						{
+//							parseApplication(XMLReader);
+//						}
+//
+//						break;
+//					}
+//					case EXNT_ELEMENT_END:
+//					{
+//						core::stringc nodeName = XMLReader->getNodeName();
+//
+//						if (nodeName == XMLTagConfig)
+//						{
+//							configRead = true;
+//							XMLReader->read();
+//						}
+//
+//						break;
+//					}
+//					case EXNT_NONE:
+//					case EXNT_TEXT:
+//					case EXNT_COMMENT:
+//					case EXNT_CDATA:
+//					case EXNT_UNKNOWN:
+//					{
+//						break;
+//					}
+//					default:
+//					{
+//						// Not implemented
+//						IRR_ASSERT(false);
+//						break;
+//					}
+//				}
+//			} while (!configRead && XMLReader->read());
+//
+//			if (XMLReader)
+//			{
+//				XMLReader->drop();
+//			}
 		}
 
 		//! Parse <application/>

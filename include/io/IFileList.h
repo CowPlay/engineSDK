@@ -17,9 +17,15 @@ namespace irrgame
 		//! Provides a list of files and folders.
 		/** File lists usually contain a list of all files in a given folder,
 		 but can also contain a complete directory structure. */
-		class IFileList: public virtual IReferenceCounted
+		class IFileList: public IReferenceCounted
 		{
 			public:
+
+				//! Destructor
+				virtual ~IFileList()
+				{
+				}
+
 				//! Get the number of files in the filelist.
 				/** \return Amount of files and directories in the file list. */
 				virtual u32 getFileCount() const = 0;

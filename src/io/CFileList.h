@@ -9,19 +9,20 @@
 #include "io/SFileListEntry.h"
 #include "core/collections/array.h"
 
-
 namespace irrgame
 {
 	namespace io
 	{
 
-		//! Implementation of a file list
+		//! Provides a list of files and folders.
+		/** File lists usually contain a list of all files in a given folder,
+		 but can also contain a complete directory structure. */
 		class CFileList: public IFileList
 		{
 			public:
 
-				//! Constructor
-				/** \param path The path of this file archive */
+				//! Default constructor
+				/** @param path The path of this file archive */
 				CFileList(const core::stringc& path, bool ignoreCase,
 						bool ignorePaths);
 
@@ -79,7 +80,7 @@ namespace irrgame
 				core::array<SFileListEntry> Files;
 		};
 
-	} // end namespace irr
+	} // end namespace irrgame
 } // end namespace io
 
 #endif

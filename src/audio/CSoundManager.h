@@ -63,15 +63,18 @@ namespace irrgame
 				//! Returns root node on the sound
 				virtual ISoundNode* getRoot();
 
-				void play(u32 pos = 0, bool loop = false);
-				void stop();
-				void pause();
-				bool isStreamed();
-				void applyEffect(SSoundEffect* value);
-				void removeEffect(SSoundEffect* value);
-				void applyFilter(ESoundFilterType value, f32 gainLf, f32 GainHf,
-						f32 gain = 1.0);
-				void removeFilter(ESoundFilterType value);
+				virtual void play(u32 pos = 0, bool loop = false);
+				virtual void stop();
+				virtual void pause();
+				virtual bool isStreamed();
+				virtual void setVolume(f32 value);
+				virtual f32 getVolume();
+				virtual void applyEffect(SSoundEffect* value);
+				virtual void removeEffect(SSoundEffect* value);
+				virtual void applyFilter(ESoundFilterType value, f32 gainLf, f32 GainHf,
+						f32 gain);
+				virtual void removeFilter(ESoundFilterType value);
+
 
 			protected:
 

@@ -22,7 +22,10 @@ namespace irrgame
 		struct SAudioSource;
 		struct SSoundEffect;
 
-		//! TODO: comment
+		//! Interface to sound manager
+		/* Manager should manipulate with audio sources, sound nodes
+		 *
+		 */
 		class ISoundManager: public IReferenceCounted
 		{
 			public:
@@ -43,7 +46,7 @@ namespace irrgame
 
 				//! Remove audio source from driver cache. Do not call manually!
 				/* This function must calls automatic from IAudioSource::~IAudioSource()
-				 * when specify source
+				 * when specify source is no longer used
 				 */
 				virtual void removeAudioSource(SAudioSource* value) = 0;
 

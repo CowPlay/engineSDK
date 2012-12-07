@@ -19,7 +19,13 @@ namespace irrgame
 		class IAudioSource;
 		struct SSoundEffect;
 
-		//! Manipulate the source and the associated buffer.
+		//! Manipulate the source and the associated with sound buffer.
+		/* Sound node is a node in a hierarchical scene audio environment. Each node can have the
+		 * children, who are also sound nodes. If the parent node does not
+		 * have the volume, his children will not be heard. So, if you delete the
+		 * parent sound, all the children will be deleted.
+		 * Audio data from the file is completely written to memory or streamed in depends from source.
+		 */
 		class ISoundNode: public core::ILeafNode<ISoundNode>
 		{
 			public:
@@ -28,9 +34,7 @@ namespace irrgame
 				ISoundNode(ISoundNode* parent, SAudioSource* source);
 
 				//! Destructor
-				virtual ~ISoundNode()
-				{
-				}
+				virtual ~ISoundNode();
 
 				//! Plays a sound source
 				/* @param pos the position at which to begin playing
@@ -39,17 +43,23 @@ namespace irrgame
 				virtual void play(u32 pos = 0, bool loop = false) = 0;
 
 				//! Stop playing.
-				/* When you start to play playing from the beginning.
+				/* When you call play() after stop() playback starts from the beginning.
 				 */
 				virtual void stop() = 0;
 
 				//! Pause playing.
-				/* When you start to play playing from where it paused.
+				/* When you call play() after pause() playback starts from where it paused.
 				 */
 				virtual void pause() = 0;
 
+				//! Set volume of this node
+				virtual void setVolume(const f32 value) = 0;
+
+				//! Returns volume of this node
+				virtual f32 getVolume() = 0;
+
 				//! Check the sound is loaded entirely into memory, or streamed in parts.
-				/* returns true if sound loaded parts.
+				/* @returns true if sound loaded parts. Otherwise returns false.
 				 */
 				virtual bool isStreamed() = 0;
 
@@ -80,6 +90,7 @@ namespace irrgame
 
 			protected:
 
+				//! Pointer to audio source which played
 				SAudioSource* Source;
 		};
 

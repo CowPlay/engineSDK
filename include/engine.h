@@ -12,6 +12,15 @@
 #include "IEngineApplication.h"
 #include "IEnginePlayer.h"
 
+//audio
+#include "audio/EAudioFormat.h"
+#include "audio/ESoundFilterType.h"
+#include "audio/IAudioDriver.h"
+#include "audio/ISoundListener.h"
+#include "audio/ISoundManager.h"
+#include "audio/ISoundNode.h"
+#include "audio/SAudioSource.h"
+
 //events
 #include "events/EEventTypes.h"
 #include "events/IEvent.h"

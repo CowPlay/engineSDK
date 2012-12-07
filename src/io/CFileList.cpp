@@ -9,9 +9,6 @@ namespace irrgame
 {
 	namespace io
 	{
-
-		static const core::stringc emptyFileListEntry;
-
 		CFileList::CFileList(const core::stringc& path, bool ignoreCase,
 				bool ignorePaths) :
 				IgnorePaths(ignorePaths), IgnoreCase(ignoreCase), Path(path)
@@ -139,7 +136,9 @@ namespace irrgame
 			}
 
 			if (IgnoreCase)
+			{
 				entry.FullName.makeLower();
+			}
 
 			if (IgnorePaths)
 			{
@@ -155,7 +154,7 @@ namespace irrgame
 			return Path;
 		}
 
-		//! IFileList creator
+		//! Internal function. Please do not use.
 		IFileList* createFileList(const core::stringc& path, bool ignoreCase,
 				bool ignorePaths)
 		{

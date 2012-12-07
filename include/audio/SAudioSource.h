@@ -60,7 +60,7 @@ namespace irrgame
 				//! TODO: write comment
 				io::IReadFile* File;
 
-			protected:
+			private:
 
 				//! Manager which own this source
 				ISoundManager* Manager;

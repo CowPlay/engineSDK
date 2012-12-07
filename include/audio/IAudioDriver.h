@@ -14,7 +14,7 @@ namespace irrgame
 {
 	namespace audio
 	{
-		//! TODO: comment
+		//! Interface to currently used audio driver.
 		class IAudioDriver: public IReferenceCounted
 		{
 			public:
