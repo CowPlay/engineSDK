@@ -10,6 +10,8 @@
 #ifndef COMPILECONFIGMACOSX_H_
 #define COMPILECONFIGMACOSX_H_
 
+#define DEV_OS_OSX
+
 /*
  * Fundamental types. This typedefs ensures portability of the engine.
  */

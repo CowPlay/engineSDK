@@ -18,12 +18,17 @@
  */
 
 //We use attribute "unused" for disable warnings
-__attribute__ ((unused)) static const c8* XMLTagConfig = "config";
-__attribute__ ((unused)) static const c8* XMLTagApplication = "application";
-__attribute__ ((unused)) static const c8* XMLTagAttributes = "attributes";
+#define XMLTagConfig "config"
+#define XMLTagApplication "application"
+#define XMLTagAttributes "attributes"
+#define XMLAttrAppFile "appFile"
+#define XMLAttrAppCreator  "appCreator"
+//__attribute__ ((unused)) static const c8* XMLTagConfig = "config";
+//__attribute__ ((unused)) static const c8* XMLTagApplication = "application";
+//__attribute__ ((unused)) static const c8* XMLTagAttributes = "attributes";
 
-__attribute__ ((unused)) static const c8* XMLAttrAppFile = "appFile";
-__attribute__ ((unused)) static const c8* XMLAttrAppCreator = "appCreator";
+//__attribute__ ((unused)) static const c8* XMLAttrAppFile = "appFile";
+//__attribute__ ((unused)) static const c8* XMLAttrAppCreator = "appCreator";
 
 //Use in collections
 static const s32 IrrNotFound = -1;

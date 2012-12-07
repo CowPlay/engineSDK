@@ -383,7 +383,7 @@ float vqgen_iterate(vqgen *v,int biasp){
       float firstmetric=v->metric_func(v,_now(v,0),ppt)+v->bias[0];
       float secondmetric=v->metric_func(v,_now(v,1),ppt)+v->bias[1];
       long   firstentry=0;
-      long   secondentry=1;
+//      long   secondentry=1;
       
       if(!(i&0xff))spinnit("biasing... ",v->points+v->points+v->entries-i);
       
@@ -392,7 +392,7 @@ float vqgen_iterate(vqgen *v,int biasp){
         firstmetric=secondmetric;
         secondmetric=temp;
         firstentry=1;
-        secondentry=0;
+//        secondentry=0;
       }
       
       for(j=2;j<v->entries;j++){
@@ -400,12 +400,12 @@ float vqgen_iterate(vqgen *v,int biasp){
         if(thismetric<secondmetric){
           if(thismetric<firstmetric){
             secondmetric=firstmetric;
-            secondentry=firstentry;
+//            secondentry=firstentry;
             firstmetric=thismetric;
             firstentry=j;
           }else{
             secondmetric=thismetric;
-            secondentry=j;
+//            secondentry=j;
           }
         }
       }

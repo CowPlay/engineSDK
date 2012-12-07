@@ -42,7 +42,10 @@ int main(int argc,char *argv[]){
   long *lengths;
   long *hits;
 
-  int entries=-1,dim=-1,guard=1;
+  int entries=-1;
+//  int dim=-1;
+  int guard=1;
+
   FILE *in=NULL;
   char *line,*name;
   long j;
@@ -79,7 +82,7 @@ int main(int argc,char *argv[]){
   }
 
   entries=b->entries;
-  dim=b->dim;
+//  dim=b->dim;
 
   hits=_ogg_malloc(entries*sizeof(long));
   lengths=_ogg_calloc(entries,sizeof(long));

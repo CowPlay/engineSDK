@@ -11,6 +11,8 @@
 #ifndef COMPILECONFIGLINUX_H_
 #define COMPILECONFIGLINUX_H_
 
+#define DEV_OS_LINUX
+
 /*
  * Fundamental types. This typedefs ensures portability of the engine.
  */
