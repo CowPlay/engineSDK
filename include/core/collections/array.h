@@ -2,20 +2,18 @@
 // This file is part of the "Irrlicht Engine" and the "irrXML" project.
 // For conditions of distribution and use, see copyright notice in irrlicht.h and irrXML.h
 
-#ifndef _IRR_ARRAY_HINCLUDED__
-#define _IRR_ARRAY_HINCLUDED__
+#ifndef ARRAY_H_
+#define ARRAY_H_
 
 #include "core/collections/ICollection.h"
 
 #include "core/allocator/allocatorFast.h"
 #include "core/allocator/EAllocStrategy.h"
 
-#include "core/math/SharedMath.h"
+#include "core/math/StaticMath.h"
 #include "core/math/SharedHeapsort.h"
 
 #include "threads/IMonitor.h"
-
-//#include <stdio.h>
 
 namespace irrgame
 {
@@ -868,13 +866,13 @@ namespace irrgame
 			other.Monitor->enter();
 			Monitor->enter();
 
-			SharedMath::getInstance().swap(Monitor, other.Monitor);
-			SharedMath::getInstance().swap(Data, other.Data);
-			SharedMath::getInstance().swap(Allocated, other.Allocated);
-			SharedMath::getInstance().swap(Used, other.Used);
-			SharedMath::getInstance().swap(Allocator, other.Allocator);	// memory is still released by the same allocator used for allocation
+			StaticMath::swap(Monitor, other.Monitor);
+			StaticMath::swap(Data, other.Data);
+			StaticMath::swap(Allocated, other.Allocated);
+			StaticMath::swap(Used, other.Used);
+			StaticMath::swap(Allocator, other.Allocator); // memory is still released by the same allocator used for allocation
 
-			EAllocStrategy helperStrategy(Strategy);// can't use core::swap with bitfields
+			EAllocStrategy helperStrategy(Strategy); // can't use core::swap with bitfields
 			Strategy = other.Strategy;
 			other.Strategy = helperStrategy;
 
@@ -973,5 +971,5 @@ namespace irrgame
 	} // end namespace core
 } // end namespace irrgame
 
-#endif
+#endif /* ARRAY_H_ */
 

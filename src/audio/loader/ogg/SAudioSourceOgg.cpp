@@ -12,11 +12,13 @@ namespace irrgame
 	namespace audio
 	{
 
+		//! Default constructor
 		SAudioSourceOgg::SAudioSourceOgg(ISoundManager* manager) :
-				SAudioSource(manager)
+				SAudioSource(manager), VorbisFile(0), Comment(0), Info(0)
 		{
 		}
 
+		//! Destructor
 		SAudioSourceOgg::~SAudioSourceOgg()
 		{
 			if (!VorbisFile)

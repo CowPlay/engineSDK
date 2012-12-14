@@ -67,7 +67,7 @@
 #include "threads/IThread.h"
 
 //video
-#include "video/utils/SharedVideoUtils.h"
+#include "video/utils/StaticVideoUtils.h"
 #include "video/driver/IVideoDriver.h"
 #include "video/color.h"
 

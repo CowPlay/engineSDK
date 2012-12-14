@@ -5,7 +5,7 @@
 #ifndef __I_MATERIAL_RENDERER_H_INCLUDED__
 #define __I_MATERIAL_RENDERER_H_INCLUDED__
 
-#include "core/engine/IReferenceCounted.h"
+#include "core/engine/IReferenceCountedSafe.h"
 #include "video/material/SMaterial.h"
 
 //#include "S3DVertex.h"

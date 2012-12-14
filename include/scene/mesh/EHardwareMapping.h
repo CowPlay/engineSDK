@@ -12,7 +12,7 @@ namespace irrgame
 {
 	namespace scene
 	{
-		enum E_HARDWARE_MAPPING
+		enum EHardwareMapping
 		{
 			//! Don't store on the hardware
 			EHM_NEVER = 0,
@@ -26,6 +26,7 @@ namespace irrgame
 			//! Always changed, cache optimizing on the GPU
 			EHM_STREAM,
 
+			//! Not used
 			EHM_COUNT
 		};
 	}  // namespace scene

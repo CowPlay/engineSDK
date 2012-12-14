@@ -4,51 +4,26 @@
  *  Created on: Nov 2, 2012
  *      Author: gregorytkach
  */
-#include "core/math/SharedConverter.h"
-#include "UIntToFloat.h"
+
+#include "core/math/StaticMath.h"
+#include "core/math/StaticConverter.h"
+
+#include <limits.h> // For INT_MAX / UINT_MAX
 
 namespace irrgame
 {
 	namespace core
 	{
-		//! Singleton realization
-		SharedConverter& SharedConverter::getInstance()
-		{
-			static SharedConverter instance;
-			return instance;
-		}
-
-		//! Default constructor. Should use only one time.
-		SharedConverter::SharedConverter()
-		{
-			// we write [17] here instead of [] to work around a swig bug
-			atofTable[00] = 0.f;
-			atofTable[1] = 0.1f;
-			atofTable[2] = 0.01f;
-			atofTable[3] = 0.001f;
-			atofTable[4] = 0.0001f;
-			atofTable[5] = 0.00001f;
-			atofTable[6] = 0.000001f;
-			atofTable[7] = 0.0000001f;
-			atofTable[8] = 0.00000001f;
-			atofTable[9] = 0.000000001f;
-			atofTable[10] = 0.0000000001f;
-			atofTable[11] = 0.00000000001f;
-			atofTable[12] = 0.000000000001f;
-			atofTable[13] = 0.0000000000001f;
-			atofTable[14] = 0.00000000000001f;
-			atofTable[15] = 0.000000000000001f;
-			atofTable[16] = 0.0000000000000001f;
-		}
-
-		//! Destructor. Should use only one time.
-		SharedConverter::~SharedConverter()
-		{
-		}
+		// we write [17] here instead of [] to work around a swig bug
+		f32 StaticConverter::atofTable[17] =
+		{ 0.f, 0.1f, 0.01f, 0.001f, 0.0001f, 0.00001f, 0.000001f, 0.0000001f,
+				0.00000001f, 0.000000001f, 0.0000000001f, 0.00000000001f,
+				0.000000000001f, 0.0000000000001f, 0.00000000000001f,
+				0.000000000000001f, 0.0000000000000001f };
 
 		//! Convert a string to a floating point number
-		f32 SharedConverter::convertToFloat(const c8* value,
-				bool moveStringCursor) const
+		f32 StaticConverter::convertToFloat(const c8* value,
+				bool moveStringCursor)
 		{
 			f32 ret;
 
@@ -64,54 +39,9 @@ namespace irrgame
 			return ret;
 		}
 
-#ifdef IRR_FAST_MATH
 
-		//! Floating-point representation of an integer value.
-		f32 SharedConverter::convertToFloat(u32 x) const
-		{
-			return ((f32&) (x));
-		}
-
-		//! Floating-point representation of an integer value.
-		f32 SharedConverter::convertToFloat(s32 x) const
-		{
-			return ((f32&) (x));
-		}
-
-		//! code is taken from IceFPU
-		//! Integer representation of a floating-point value.
-		u32 SharedConverter::convertToUInt(f32 x) const
-		{
-			return ((u32&) (x));
-		}
-#else
-		//! Floating-point representation of an integer value.
-		f32 SharedConverter::convertToFloat(u32 x) const
-		{
-			UIntToFloat tmp;
-			tmp.u = x;
-			return tmp.f;
-		}
-
-		//! Floating-point representation of an integer value.
-		f32 SharedConverter::convertToFloat(s32 x) const
-		{
-			UIntToFloat tmp;
-			tmp.s = x;
-			return tmp.f;
-		}
-
-		//! code is taken from IceFPU
-		//! Integer representation of a floating-point value.
-		u32 SharedConverter::convertToUInt(f32 x) const
-		{
-			UIntToFloat tmp;
-			tmp.f = x;
-			return tmp.u;
-		}
-#endif
 		//! Convert a simple string of base 10 digits into a signed 32 bit integer.
-		s32 SharedConverter::strtol10(const c8* in, const c8** out) const
+		s32 StaticConverter::strtol10(const c8* in, const c8** out)
 		{
 			s32 result = 0;
 
@@ -155,7 +85,7 @@ namespace irrgame
 		//! Converts a sequence of digits into a whole positive floating point value.
 		//! Only digits 0 to 9 are parsed.  Parsing stops at any other character,
 		//! including sign characters or a decimal point.
-		f32 SharedConverter::strtof10(const c8* in, const c8** out) const
+		f32 StaticConverter::strtof10(const c8* in, const c8** out)
 		{
 			IRR_ASSERT(in);
 
@@ -191,7 +121,7 @@ namespace irrgame
 			{
 				floatValue = (floatValue * 10.f) + (f32) (*in - '0');
 				++in;
-				if (floatValue > SharedMath::MaxFloat) // Just give up.
+				if (floatValue > StaticMath::MaxFloat) // Just give up.
 				{
 					break;
 				}
@@ -208,7 +138,7 @@ namespace irrgame
 		//! Provides a fast function for converting a string into a float.
 		//! This is not guaranteed to be as accurate as atof(), but is
 		//! approximately 6 to 8 times as fast.
-		const c8* SharedConverter::move(const c8* in, f32& out) const
+		const c8* StaticConverter::move(const c8* in, f32& out)
 		{
 			IRR_ASSERT(in);
 
@@ -246,7 +176,7 @@ namespace irrgame
 				// Assume that the exponent is a whole number.
 				// strtol10() will deal with both + and - signs,
 				// but cast to (f32) to prevent overflow at FLT_MAX
-				value *= (f32) pow(10.0f, (f32) strtol10(in, &in));
+				value *= (f32) StaticMath::powf_(10.0f, (f32) strtol10(in, &in));
 			}
 
 			out = negative ? -value : value;

@@ -52,7 +52,7 @@ namespace irrgame
 
 		void CFloatAttribute::setString(const c8* text)
 		{
-			Value = core::SharedConverter::getInstance().convertToFloat(text);
+			Value = core::StaticConverter::convertToFloat(text);
 		}
 
 		EAttributeType CFloatAttribute::getType() const

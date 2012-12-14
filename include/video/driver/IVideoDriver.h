@@ -177,10 +177,14 @@ namespace irrgame
 
 				//! Returns true if video driver have errors.
 				virtual bool haveError() const = 0;
+
+				//! Returns the maximum texture size supported.
+				virtual dimension2du getMaxTextureSize() const =0;
 		};
 
 		//! Internal function. Please do not use.
 		IVideoDriver* createVideoDriver(IEnginePlayer* player);
+
 
 	}
 }

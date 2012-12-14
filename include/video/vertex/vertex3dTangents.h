@@ -37,7 +37,7 @@ namespace irrgame
 						const vector3df& tangent = vector3df(),
 						const vector3df& binormal = vector3df());
 
-				E_VERTEX_TYPE getType() const;
+				EVertexType getType() const;
 
 				/*
 				 * Operators

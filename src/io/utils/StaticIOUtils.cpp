@@ -59,27 +59,29 @@ namespace irrgame
 		}
 
 		//! Returns new string which contains the filename extension from a file path
-		core::stringc* StaticIOUtils::getFileNameExtension(const core::stringc& path)
+		core::stringc StaticIOUtils::getFileNameExtension(
+				const core::stringc& path)
 		{
-			core::stringc* result = 0;
+			core::stringc result = 0;
 
 			s32 endPos = path.findLast('.');
 
 			if (endPos == IrrNotFound)
 			{
-				result = new core::stringc("");
+				result = core::stringc("");
 			}
 			else
 			{
 				// We add to endPost + 1 to prevent "." in extention
-				result = new core::stringc(path.subString(endPos + 1, path.size()));
+				result = core::stringc(path.subString(endPos + 1, path.size()));
 			}
 
 			return result;
 		}
 
-//! delete path from filename
-		core::stringc& StaticIOUtils::deletePathFromFilename(core::stringc& filename)
+		//! delete path from filename
+		core::stringc& StaticIOUtils::deletePathFromFilename(
+				core::stringc& filename)
 		{
 			// delete path from filename
 			const c8* s = filename.cStr();
@@ -100,9 +102,9 @@ namespace irrgame
 			return filename;
 		}
 
-//! trim paths
-		core::stringc& StaticIOUtils::deletePathFromPath(core::stringc& filename,
-				s32 pathCount)
+		//! trim paths
+		core::stringc& StaticIOUtils::deletePathFromPath(
+				core::stringc& filename, s32 pathCount)
 		{
 			// delete path from filename
 			s32 i = filename.size();
@@ -131,8 +133,8 @@ namespace irrgame
 			return filename;
 		}
 
-//! looks if file is in the same directory of path. returns offset of directory.
-//! 0 means in same directory. 1 means file is direct child of path
+		//! looks if file is in the same directory of path. returns offset of directory.
+		//! 0 means in same directory. 1 means file is direct child of path
 		s32 StaticIOUtils::isInSameDirectory(const core::stringc& path,
 				const core::stringc& file)
 		{
@@ -160,9 +162,9 @@ namespace irrgame
 			return subB - subA;
 		}
 
-//! returns the directory part of a filename, i.e. all until the first
-//! slash or backslash, excluding it. If no directory path is prefixed, a '.'
-//! is returned.
+		//! returns the directory part of a filename, i.e. all until the first
+		//! slash or backslash, excluding it. If no directory path is prefixed, a '.'
+		//! is returned.
 		core::stringc StaticIOUtils::getFileDir(const core::stringc& filename)
 		{
 			// find last forward or backslash
@@ -176,8 +178,7 @@ namespace irrgame
 				return ".";
 		}
 
-//! some standard function ( to remove dependencies )
-
+		//! some standard function ( to remove dependencies )
 		s32 StaticIOUtils::isdigit(s32 c)
 		{
 			return c >= '0' && c <= '9';
@@ -192,7 +193,7 @@ namespace irrgame
 			return c >= 'A' && c <= 'Z';
 		}
 
-//! returns true if a character is whitespace
+		//! returns true if a character is whitespace
 		bool StaticIOUtils::isWhiteSpace(c8 c)
 		{
 			return (c == ' ' || c == '\t' || c == '\n' || c == '\r');

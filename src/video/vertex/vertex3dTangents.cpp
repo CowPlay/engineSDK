@@ -43,7 +43,7 @@ namespace irrgame
 		{
 		}
 
-		E_VERTEX_TYPE vertex3dTangents::getType() const
+		EVertexType vertex3dTangents::getType() const
 		{
 			return EVT_TANGENTS;
 		}

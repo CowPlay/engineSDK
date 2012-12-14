@@ -209,7 +209,7 @@ namespace irrgame
 
 			if (diag > 0.0f)
 			{
-				const f32 scale = sqrtf(diag) * 2.0f; // get scale from diagonal
+				const f32 scale = StaticMath::squareroot(diag) * 2.0f; // get scale from diagonal
 
 				// TODO: speed this up
 				X = (m(2, 1) - m(1, 2)) / scale;
@@ -223,8 +223,8 @@ namespace irrgame
 				{
 					// 1st element of diag is greatest value
 					// find scale according to 1st element, and double it
-					const f32 scale = sqrtf(1.0f + m(0, 0) - m(1, 1) - m(2, 2))
-							* 2.0f;
+					const f32 scale = StaticMath::squareroot(
+							1.0f + m(0, 0) - m(1, 1) - m(2, 2)) * 2.0f;
 
 					// TODO: speed this up
 					X = 0.25f * scale;
@@ -236,8 +236,8 @@ namespace irrgame
 				{
 					// 2nd element of diag is greatest value
 					// find scale according to 2nd element, and double it
-					const f32 scale = sqrtf(1.0f + m(1, 1) - m(0, 0) - m(2, 2))
-							* 2.0f;
+					const f32 scale = StaticMath::squareroot(
+							1.0f + m(1, 1) - m(0, 0) - m(2, 2)) * 2.0f;
 
 					// TODO: speed this up
 					X = (m(0, 1) + m(1, 0)) / scale;
@@ -249,8 +249,8 @@ namespace irrgame
 				{
 					// 3rd element of diag is greatest value
 					// find scale according to 3rd element, and double it
-					const f32 scale = sqrtf(1.0f + m(2, 2) - m(0, 0) - m(1, 1))
-							* 2.0f;
+					const f32 scale = StaticMath::squareroot(
+							1.0f + m(2, 2) - m(0, 0) - m(1, 1)) * 2.0f;
 
 					// TODO: speed this up
 					X = (m(0, 2) + m(2, 0)) / scale;
@@ -434,16 +434,16 @@ namespace irrgame
 			f32 angle;
 
 			angle = x * 0.5;
-			const f32 sr = sin(angle);
-			const f32 cr = cos(angle);
+			const f32 sr = StaticMath::sinf_(angle);
+			const f32 cr = StaticMath::cosf_(angle);
 
 			angle = y * 0.5;
-			const f32 sp = sin(angle);
-			const f32 cp = cos(angle);
+			const f32 sp = StaticMath::sinf_(angle);
+			const f32 cp = StaticMath::cosf_(angle);
 
 			angle = z * 0.5;
-			const f32 sy = sin(angle);
-			const f32 cy = cos(angle);
+			const f32 sy = StaticMath::sinf_(angle);
+			const f32 cy = StaticMath::cosf_(angle);
 
 			const f32 cpcy = cp * cy;
 			const f32 spcy = sp * cy;
@@ -479,7 +479,7 @@ namespace irrgame
 				return *this;
 
 			//n = 1.0f / sqrtf(n);
-			return (*this *= SharedFastMath::getInstance().invertSqrt(n));
+			return (*this *= StaticMath::invertSqrt(n));
 		}
 
 		// set this quaternion to the result of the interpolation between two quaternions
@@ -501,11 +501,12 @@ namespace irrgame
 			{
 				if ((1.0f - angle) >= 0.05f) // spherical interpolation
 				{
-					const f32 theta = acosf(angle);
-					const f32 invsintheta =
-							SharedFastMath::getInstance().invert(sinf(theta));
-					scale = sinf(theta * (1.0f - time)) * invsintheta;
-					invscale = sinf(theta * time) * invsintheta;
+					const f32 theta = StaticMath::acosf_(angle);
+					const f32 invsintheta = StaticMath::invert(
+							StaticMath::sinf_(theta));
+					scale = StaticMath::sinf_(theta * (1.0f - time))
+							* invsintheta;
+					invscale = StaticMath::sinf_(theta * time) * invsintheta;
 				}
 				else // linear interploation
 				{
@@ -516,8 +517,8 @@ namespace irrgame
 			else
 			{
 				q2.set(-q1.Y, q1.X, -q1.W, q1.Z);
-				scale = sinf(SharedMath::Pi * (0.5f - time));
-				invscale = sinf(SharedMath::Pi * time);
+				scale = StaticMath::sinf_(StaticMath::Pi * (0.5f - time));
+				invscale = StaticMath::sinf_(StaticMath::Pi * time);
 			}
 
 			return (*this = (q1 * scale) + (q2 * invscale));
@@ -535,8 +536,8 @@ namespace irrgame
 				const vector3df& axis)
 		{
 			const f32 fHalfAngle = 0.5f * angle;
-			const f32 fSin = sinf(fHalfAngle);
-			W = cosf(fHalfAngle);
+			const f32 fSin = StaticMath::sinf_(fHalfAngle);
+			W = StaticMath::cosf_(fHalfAngle);
 			X = fSin * axis.X;
 			Y = fSin * axis.Y;
 			Z = fSin * axis.Z;
@@ -545,10 +546,9 @@ namespace irrgame
 
 		inline void quaternion::toAngleAxis(f32 &angle, vector3df &axis) const
 		{
-			const f32 scale = sqrtf(X * X + Y * Y + Z * Z);
+			const f32 scale = StaticMath::squareroot(X * X + Y * Y + Z * Z);
 
-			if (SharedMath::getInstance().iszero(scale) || W > 1.0f
-					|| W < -1.0f)
+			if (StaticMath::iszero(scale) || W > 1.0f || W < -1.0f)
 			{
 				angle = 0.0f;
 				axis.X = 0.0f;
@@ -557,9 +557,8 @@ namespace irrgame
 			}
 			else
 			{
-				const f32 invscale = SharedFastMath::getInstance().invert(
-						scale);
-				angle = 2.0f * acosf(W);
+				const f32 invscale = StaticMath::invert(scale);
+				angle = 2.0f * StaticMath::acosf_(W);
 				axis.X = X * invscale;
 				axis.Y = Y * invscale;
 				axis.Z = Z * invscale;
@@ -574,17 +573,16 @@ namespace irrgame
 			const f32 sqz = Z * Z;
 
 			// heading = rotation about z-axis
-			euler.Z = (f32) (atan2(2.0 * (X * Y + Z * W),
+			euler.Z = (f32) (StaticMath::atan2f_(2.0 * (X * Y + Z * W),
 					(sqx - sqy - sqz + sqw)));
 
 			// bank = rotation about x-axis
-			euler.X = (f32) (atan2(2.0 * (Y * Z + X * W),
+			euler.X = (f32) (StaticMath::atan2f_(2.0 * (Y * Z + X * W),
 					(-sqx - sqy + sqz + sqw)));
 
 			// attitude = rotation about y-axis
-			euler.Y = asinf(
-					SharedMath::getInstance().clamp(-2.0f * (X * Z - Y * W),
-							-1.0f, 1.0f));
+			euler.Y = StaticMath::asinf_(
+					StaticMath::clamp(-2.0f * (X * Z - Y * W), -1.0f, 1.0f));
 		}
 
 		inline vector3df quaternion::operator*(const vector3df& v) const
@@ -628,7 +626,7 @@ namespace irrgame
 				return makeIdentity();
 			}
 
-			const f32 s = sqrtf((1 + d) * 2); // optimize inv_sqrt
+			const f32 s = StaticMath::squareroot((1 + d) * 2); // optimize inv_sqrt
 			const f32 invs = 1.f / s;
 			const vector3df c = v0.crossProduct(v1) * invs;
 			X = c.X;

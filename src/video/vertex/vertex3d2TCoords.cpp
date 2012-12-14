@@ -69,7 +69,7 @@ namespace irrgame
 		{
 		}
 
-		E_VERTEX_TYPE vertex3d2TCoords::getType() const
+		EVertexType vertex3d2TCoords::getType() const
 		{
 			return EVT_2TCOORDS;
 		}

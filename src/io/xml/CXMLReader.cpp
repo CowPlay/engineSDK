@@ -5,7 +5,7 @@
  *      Author: gregorytkach
  */
 #include "CXMLReader.h"
-#include "core/math/SharedConverter.h"
+#include "core/math/StaticConverter.h"
 #include "io/IReadFile.h"
 #include "io/utils/StaticIOUtils.h"
 
@@ -284,7 +284,7 @@ namespace irrgame
 			IRR_ASSERT(attr != 0);
 
 			core::stringc c = attr->Value.cStr();
-			return core::SharedConverter::getInstance().convertToFloat(c.cStr());
+			return core::StaticConverter::convertToFloat(c.cStr());
 		}
 
 		//! Returns the value of an attribute as float.
@@ -295,7 +295,7 @@ namespace irrgame
 			IRR_ASSERT(sizeof(attrvalue) > 0);
 
 			core::stringc c = attrvalue;
-			return core::SharedConverter::getInstance().convertToFloat(c.cStr());
+			return core::StaticConverter::convertToFloat(c.cStr());
 		}
 
 		//! Returns the name of the current node.

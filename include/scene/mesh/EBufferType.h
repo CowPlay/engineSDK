@@ -12,7 +12,7 @@ namespace irrgame
 {
 	namespace scene
 	{
-		enum E_BUFFER_TYPE
+		enum EBufferType
 		{
 			//! Does not change anything
 			EBT_NONE = 0,
@@ -23,6 +23,7 @@ namespace irrgame
 			//! Change both vertex and index mapping to the same value
 			EBT_VERTEX_AND_INDEX,
 
+			//! Not used
 			EBT_COUNT
 		};
 	}  // namespace scene

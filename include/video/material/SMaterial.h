@@ -2,10 +2,8 @@
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in irrlicht.h
 
-#ifndef __S_MATERIAL_H_INCLUDED__
-#define __S_MATERIAL_H_INCLUDED__
-
-#include "video/utils/SharedVideoUtils.h"
+#ifndef SMATERIAL_H_
+#define SMATERIAL_H_
 
 #include "SMaterialLayer.h"
 #include "video/color/SColor.h"
@@ -77,12 +75,12 @@ namespace irrgame
 				//! Sets the Material flag to the given value
 				/** \param flag The flag to be set.
 				 \param value The new value for the flag. */
-				void setFlag(E_MATERIAL_FLAG flag, bool value);
+				void setFlag(EMaterialFlag flag, bool value);
 
 				//! Gets the Material flag
 				/** \param flag The flag to query.
 				 \return The current value of the flag. */
-				bool getFlag(E_MATERIAL_FLAG flag) const;
+				bool getFlag(EMaterialFlag flag) const;
 
 				//! Inequality operator
 				/** \param b Material to compare to.
@@ -228,4 +226,4 @@ namespace irrgame
 	} // end namespace video
 } // end namespace irrgame
 
-#endif
+#endif /* SMATERIAL_H_ */

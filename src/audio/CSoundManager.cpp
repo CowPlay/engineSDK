@@ -42,16 +42,16 @@ namespace irrgame
 
 			IRR_ASSERT(file);
 
-			core::stringc* extension = io::StaticIOUtils::getFileNameExtension(
+			core::stringc extension = io::StaticIOUtils::getFileNameExtension(
 					path);
 
-			if (extension->equalsIgnoreCase("wav"))
+			if (extension.equalsIgnoreCase("wav"))
 			{
 				result =
 						SharedAudioSourceLoaderWav::getInstance().createAudioSource(
 								file, this);
 			}
-			else if (extension->equalsIgnoreCase("ogg"))
+			else if (extension.equalsIgnoreCase("ogg"))
 			{
 				result =
 						SharedAudioSourceLoaderOgg::getInstance().createAudioSource(

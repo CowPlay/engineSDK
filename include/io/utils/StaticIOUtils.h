@@ -36,7 +36,7 @@ namespace irrgame
 
 				//! Returns new string which contains the filename extension from a file path
 				/* After used result you must delete it */
-				static core::stringc* getFileNameExtension(
+				static core::stringc getFileNameExtension(
 						const core::stringc& path);
 
 				//! delete path from filename
@@ -60,15 +60,19 @@ namespace irrgame
 				//! some standard function ( to remove dependencies )
 				static s32 isdigit(s32 c);
 
+				//TODO: comment
 				static s32 isspace(s32 c);
 
+				//TODO: comment
 				static s32 isupper(s32 c);
 
 				//! returns true if a character is whitespace
 				static bool isWhiteSpace(c8 c);
 
+				//TODO: comment
 				static s32 getByteFromHex(c8 h);
 
+				//TODO: comment
 				static void getHexStrFromByte(c8 byte, c8* out);
 		};
 

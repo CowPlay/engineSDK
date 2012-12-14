@@ -8,7 +8,7 @@
 #include "blit.h"
 #include "video/image/IImage.h"
 #include "video/color/SharedColorConverter.h"
-#include "video/utils/SharedVideoUtils.h"
+#include "video/utils/StaticVideoUtils.h"
 #include "blitterTable.h"
 
 //for memcpy
@@ -85,33 +85,25 @@ namespace irrgame
 				{
 					// clip bottom viewport
 					y = clipping.y1;
-					x = p0.X
-							+ (p1.X - p0.X) * (y - p0.Y)
-									/ (p1.Y - p0.Y);
+					x = p0.X + (p1.X - p0.X) * (y - p0.Y) / (p1.Y - p0.Y);
 				}
 				else if ((code & CLIPCODE_TOP) == CLIPCODE_TOP)
 				{
 					// clip to viewport
 					y = clipping.y0;
-					x = p0.X
-							+ (p1.X - p0.X) * (y - p0.Y)
-									/ (p1.Y - p0.Y);
+					x = p0.X + (p1.X - p0.X) * (y - p0.Y) / (p1.Y - p0.Y);
 				}
 				else if ((code & CLIPCODE_RIGHT) == CLIPCODE_RIGHT)
 				{
 					// clip right viewport
 					x = clipping.x1;
-					y = p0.Y
-							+ (p1.Y - p0.Y) * (x - p0.X)
-									/ (p1.X - p0.X);
+					y = p0.Y + (p1.Y - p0.Y) * (x - p0.X) / (p1.X - p0.X);
 				}
 				else if ((code & CLIPCODE_LEFT) == CLIPCODE_LEFT)
 				{
 					// clip left viewport
 					x = clipping.x0;
-					y = p0.Y
-							+ (p1.Y - p0.Y) * (x - p0.X)
-									/ (p1.X - p0.X);
+					y = p0.Y + (p1.Y - p0.Y) * (x - p0.X) / (p1.X - p0.X);
 				}
 
 				if (code == code0)
@@ -207,8 +199,9 @@ namespace irrgame
 			}
 
 			u32 *dst;
-			dst = (u32*) ((u8*) t->lock() + (p0.Y * t->getPitch())
-					+ (p0.X << 2));
+			dst =
+					(u32*) ((u8*) t->lock() + (p0.Y * t->getPitch())
+							+ (p0.X << 2));
 
 			if (dy > dx)
 			{
@@ -269,8 +262,9 @@ namespace irrgame
 			}
 
 			u32 *dst;
-			dst = (u32*) ((u8*) t->lock() + (p0.Y * t->getPitch())
-					+ (p0.X << 2));
+			dst =
+					(u32*) ((u8*) t->lock() + (p0.Y * t->getPitch())
+							+ (p0.X << 2));
 
 			if (dy > dx)
 			{
@@ -291,8 +285,7 @@ namespace irrgame
 			while (run)
 			{
 				*dst = packA
-						| SharedVideoUtils::getInstance().PixelBlend32(*dst,
-								argb, alpha);
+						| StaticVideoUtils::PixelBlend32(*dst, argb, alpha);
 
 				dst = (u32*) ((u8*) dst + xInc);	// x += xInc
 				d += m;
@@ -334,8 +327,9 @@ namespace irrgame
 			}
 
 			u16 *dst;
-			dst = (u16*) ((u8*) t->lock() + (p0.Y * t->getPitch())
-					+ (p0.X << 1));
+			dst =
+					(u16*) ((u8*) t->lock() + (p0.Y * t->getPitch())
+							+ (p0.X << 1));
 
 			if (dy > dx)
 			{
@@ -396,8 +390,9 @@ namespace irrgame
 			}
 
 			u16 *dst;
-			dst = (u16*) ((u8*) t->lock() + (p0.Y * t->getPitch())
-					+ (p0.X << 1));
+			dst =
+					(u16*) ((u8*) t->lock() + (p0.Y * t->getPitch())
+							+ (p0.X << 1));
 
 			if (dy > dx)
 			{
@@ -418,8 +413,7 @@ namespace irrgame
 			while (run)
 			{
 				*dst = packA
-						| SharedVideoUtils::getInstance().PixelBlend16(*dst,
-								argb, alpha);
+						| StaticVideoUtils::PixelBlend16(*dst, argb, alpha);
 
 				dst = (u16*) ((u8*) dst + xInc);	// x += xInc
 				d += m;
@@ -584,22 +578,21 @@ namespace irrgame
 			u32 *dst = (u32*) job->dst;
 
 			const u32 rdx = job->width >> 1;
-			const u32 off = core::SharedMath::getInstance().ifCONDThanAelseB(
-					job->width & 1, job->width - 1, 0);
+			const u32 off = core::StaticMath::ifCONDThanAelseB(job->width & 1,
+					job->width - 1, 0);
 
 			for (dy = 0; dy != job->height; ++dy)
 			{
 				for (dx = 0; dx != rdx; ++dx)
 				{
-					dst[dx] = SharedVideoUtils::getInstance().PixelBlend16_simd(
-							dst[dx], src[dx]);
+					dst[dx] = StaticVideoUtils::PixelBlend16_simd(dst[dx],
+							src[dx]);
 				}
 
 				if (off)
 				{
-					((u16*) dst)[off] =
-							SharedVideoUtils::getInstance().PixelBlend16(
-									((u16*) dst)[off], ((u16*) src)[off]);
+					((u16*) dst)[off] = StaticVideoUtils::PixelBlend16(
+							((u16*) dst)[off], ((u16*) src)[off]);
 				}
 
 				src = (u32*) ((u8*) (src) + job->srcPitch);
@@ -616,8 +609,7 @@ namespace irrgame
 			{
 				for (s32 dx = 0; dx != job->width; ++dx)
 				{
-					dst[dx] = SharedVideoUtils::getInstance().PixelBlend32(
-							dst[dx], src[dx]);
+					dst[dx] = StaticVideoUtils::PixelBlend32(dst[dx], src[dx]);
 				}
 				src = (u32*) ((u8*) (src) + job->srcPitch);
 				dst = (u32*) ((u8*) (dst) + job->dstPitch);
@@ -638,8 +630,7 @@ namespace irrgame
 					if (0 == (src[dx] & 0x8000))
 						continue;
 
-					dst[dx] = SharedVideoUtils::getInstance().PixelMul16_2(
-							src[dx], blend);
+					dst[dx] = StaticVideoUtils::PixelMul16_2(src[dx], blend);
 				}
 				src = (u16*) ((u8*) (src) + job->srcPitch);
 				dst = (u16*) ((u8*) (dst) + job->dstPitch);
@@ -655,10 +646,8 @@ namespace irrgame
 			{
 				for (s32 dx = 0; dx != job->width; ++dx)
 				{
-					dst[dx] = SharedVideoUtils::getInstance().PixelBlend32(
-							dst[dx],
-							SharedVideoUtils::getInstance().PixelMul32_2(
-									src[dx], job->argb));
+					dst[dx] = StaticVideoUtils::PixelBlend32(dst[dx],
+							StaticVideoUtils::PixelMul32_2(src[dx], job->argb));
 				}
 				src = (u32*) ((u8*) (src) + job->srcPitch);
 				dst = (u32*) ((u8*) (dst) + job->dstPitch);
@@ -677,8 +666,7 @@ namespace irrgame
 			{
 				for (s32 dy = 0; dy != job->height; ++dy)
 				{
-					SharedVideoUtils::getInstance().memset32(dst, c,
-							job->srcPitch);
+					StaticVideoUtils::memset32(dst, c, job->srcPitch);
 					dst = (u16*) ((u8*) (dst) + job->dstPitch);
 				}
 			}
@@ -688,8 +676,7 @@ namespace irrgame
 
 				for (s32 dy = 0; dy != job->height; ++dy)
 				{
-					SharedVideoUtils::getInstance().memset32(dst, c,
-							job->srcPitch);
+					StaticVideoUtils::memset32(dst, c, job->srcPitch);
 					dst[dx] = c0;
 					dst = (u16*) ((u8*) (dst) + job->dstPitch);
 				}
@@ -703,8 +690,7 @@ namespace irrgame
 
 			for (s32 dy = 0; dy != job->height; ++dy)
 			{
-				SharedVideoUtils::getInstance().memset32(dst, job->argb,
-						job->srcPitch);
+				StaticVideoUtils::memset32(dst, job->argb, job->srcPitch);
 				dst = (u32*) ((u8*) (dst) + job->dstPitch);
 			}
 		}
@@ -725,8 +711,8 @@ namespace irrgame
 				for (s32 dx = 0; dx != job->width; ++dx)
 				{
 					dst[dx] = 0x8000
-							| SharedVideoUtils::getInstance().PixelBlend16(
-									dst[dx], src, alpha);
+							| StaticVideoUtils::PixelBlend16(dst[dx], src,
+									alpha);
 				}
 				dst = (u16*) ((u8*) (dst) + job->dstPitch);
 			}
@@ -744,8 +730,8 @@ namespace irrgame
 				for (s32 dx = 0; dx != job->width; ++dx)
 				{
 					dst[dx] = (job->argb & 0xFF000000)
-							| SharedVideoUtils::getInstance().PixelBlend32(
-									dst[dx], src, alpha);
+							| StaticVideoUtils::PixelBlend32(dst[dx], src,
+									alpha);
 				}
 				dst = (u32*) ((u8*) (dst) + job->dstPitch);
 			}
@@ -795,14 +781,12 @@ namespace irrgame
 			const s32 h = tex ? tex->getDimension().Height : 0;
 			if (clip)
 			{
-				out.x0 = core::SharedMath::getInstance().s32Clamp(
-						clip->UpperLeftCorner.X, 0, w);
-				out.x1 = core::SharedMath::getInstance().s32Clamp(
-						clip->LowerRightCorner.X, out.x0, w);
-				out.y0 = core::SharedMath::getInstance().s32Clamp(
-						clip->UpperLeftCorner.Y, 0, h);
-				out.y1 = core::SharedMath::getInstance().s32Clamp(
-						clip->LowerRightCorner.Y, out.y0, h);
+				out.x0 = core::StaticMath::clamp(clip->UpperLeftCorner.X, 0, w);
+				out.x1 = core::StaticMath::clamp(clip->LowerRightCorner.X,
+						out.x0, w);
+				out.y0 = core::StaticMath::clamp(clip->UpperLeftCorner.Y, 0, h);
+				out.y1 = core::StaticMath::clamp(clip->LowerRightCorner.Y,
+						out.y0, h);
 			}
 			else
 			{
@@ -842,8 +826,7 @@ namespace irrgame
 			v.x1 = v.x0 + (sourceClip.x1 - sourceClip.x0);
 			v.y1 = v.y0 + (sourceClip.y1 - sourceClip.y0);
 
-			if (!SharedVideoUtils::getInstance().intersect(job.Dest, destClip,
-					v))
+			if (!StaticVideoUtils::intersect(job.Dest, destClip, v))
 				return 0;
 
 			job.width = job.Dest.x1 - job.Dest.x0;

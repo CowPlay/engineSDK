@@ -2,10 +2,27 @@
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in irrlicht.h
 
-#ifndef __IRR_DIMENSION2D_H_INCLUDED__
-#define __IRR_DIMENSION2D_H_INCLUDED__
+#ifndef DIMENSION2D_H_
+#define DIMENSION2D_H_
 
-#include "core/math/SharedMath.h" // for irr::core::equals()
+#include "core/math/StaticMath.h" // for irr::core::equals()
+namespace irrgame
+{
+	namespace core
+	{
+		template<class T>
+		class dimension2d;
+	}  // namespace core
+}  // namespace irrgame
+
+//! Typedefs for dimension2d
+typedef irrgame::core::dimension2d<u32> dimension2du;
+
+/** There are few cases where negative dimensions make sense. Please consider using
+ dimension2du instead. */
+typedef irrgame::core::dimension2d<s32> dimension2di;
+typedef irrgame::core::dimension2d<f32> dimension2df;
+
 namespace irrgame
 {
 	namespace core
@@ -244,9 +261,8 @@ namespace irrgame
 		template<class T>
 		bool dimension2d<T>::operator==(const dimension2d<T>& other) const
 		{
-			return core::SharedMath::getInstance().equals(Width, other.Width)
-					&& core::SharedMath::getInstance().equals(Height,
-							other.Height);
+			return StaticMath::equals(Width, other.Width)
+					&& StaticMath::equals(Height, other.Height);
 		}
 
 		//! Inequality operator
@@ -323,13 +339,5 @@ namespace irrgame
 	} // end namespace core
 } // end namespace irrgame
 
-//! Typedefs for dimension2d
-typedef irrgame::core::dimension2d<u32> dimension2du;
-
-/** There are few cases where negative dimensions make sense. Please consider using
- dimension2du instead. */
-typedef irrgame::core::dimension2d<s32> dimension2di;
-typedef irrgame::core::dimension2d<f32> dimension2df;
-
-#endif
+#endif /* DIMENSION2D_H_ */
 

@@ -13,7 +13,7 @@ namespace irrgame
 	namespace video
 	{
 		//! Enumeration for all vertex types there are.
-		enum E_VERTEX_TYPE
+		enum EVertexType
 		{
 			//! Standard vertex type used by the Irrlicht engine, video::S3DVertex.
 			EVT_STANDARD = 0,

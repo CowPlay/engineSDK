@@ -2,11 +2,25 @@
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in irrlicht.h
 
-#ifndef __IRR_POINT_2D_H_INCLUDED__
-#define __IRR_POINT_2D_H_INCLUDED__
+#ifndef VECTOR2D_H_
+#define VECTOR2D_H_
 
-#include "core/math/SharedFastMath.h"
+#include "compileConfig.h"
+#include "core/math/StaticMath.h"
 #include "core/shapes/dimension2d.h"
+
+namespace irrgame
+{
+	namespace core
+	{
+		template<class T>
+		class vector2d;
+	}  // namespace core
+}  // namespace irrgame
+
+//! Typedefs for vector2d
+typedef irrgame::core::vector2d<f32> vector2df;
+typedef irrgame::core::vector2d<s32> vector2di;
 
 namespace irrgame
 {
@@ -208,7 +222,7 @@ namespace irrgame
 //			return vector * scalar;
 //		}
 
-		// These methods are declared in dimension2d, but need definitions of vector2d
+// These methods are declared in dimension2d, but need definitions of vector2d
 		template<class T>
 		dimension2d<T>::dimension2d(const vector2d<T>& other) :
 				Width(other.X), Height(other.Y)
@@ -432,48 +446,36 @@ namespace irrgame
 		template<class T>
 		inline bool vector2d<T>::operator<=(const vector2d<T>&other) const
 		{
-			return (X < other.X
-					|| core::SharedMath::getInstance().equals(X, other.X))
-					|| (core::SharedMath::getInstance().equals(X, other.X)
-							&& (Y < other.Y
-									|| core::SharedMath::getInstance().equals(Y,
-											other.Y)));
+			return (X < other.X || StaticMath::equals(X, other.X))
+					|| (StaticMath::equals(X, other.X)
+							&& (Y < other.Y || StaticMath::equals(Y, other.Y)));
 		}
 
 		//! sort in order X, Y. Equality with rounding tolerance.
 		template<class T>
 		inline bool vector2d<T>::operator>=(const vector2d<T>&other) const
 		{
-			return (X > other.X
-					|| core::SharedMath::getInstance().equals(X, other.X))
-					|| (core::SharedMath::getInstance().equals(X, other.X)
-							&& (Y > other.Y
-									|| core::SharedMath::getInstance().equals(Y,
-											other.Y)));
+			return (X > other.X || StaticMath::equals(X, other.X))
+					|| (StaticMath::equals(X, other.X)
+							&& (Y > other.Y || StaticMath::equals(Y, other.Y)));
 		}
 
 		//! sort in order X, Y. Difference must be above rounding tolerance.
 		template<class T>
 		inline bool vector2d<T>::operator<(const vector2d<T>&other) const
 		{
-			return (X < other.X
-					&& !core::SharedMath::getInstance().equals(X, other.X))
-					|| (core::SharedMath::getInstance().equals(X, other.X)
-							&& Y < other.Y
-							&& !core::SharedMath::getInstance().equals(Y,
-									other.Y));
+			return (X < other.X && !StaticMath::equals(X, other.X))
+					|| (StaticMath::equals(X, other.X) && Y < other.Y
+							&& !StaticMath::equals(Y, other.Y));
 		}
 
 		//! sort in order X, Y. Difference must be above rounding tolerance.
 		template<class T>
 		inline bool vector2d<T>::operator>(const vector2d<T>&other) const
 		{
-			return (X > other.X
-					&& !core::SharedMath::getInstance().equals(X, other.X))
-					|| (core::SharedMath::getInstance().equals(X, other.X)
-							&& Y > other.Y
-							&& !core::SharedMath::getInstance().equals(Y,
-									other.Y));
+			return (X > other.X && !StaticMath::equals(X, other.X))
+					|| (StaticMath::equals(X, other.X) && Y > other.Y
+							&& !StaticMath::equals(Y, other.Y));
 		}
 
 		template<class T>
@@ -492,8 +494,8 @@ namespace irrgame
 		template<class T>
 		inline bool vector2d<T>::equals(const vector2d<T>& other) const
 		{
-			return core::SharedMath::getInstance().equals(X, other.X)
-					&& core::SharedMath::getInstance().equals(Y, other.Y);
+			return StaticMath::equals(X, other.X)
+					&& StaticMath::equals(Y, other.Y);
 		}
 
 		template<class T>
@@ -516,7 +518,7 @@ namespace irrgame
 		template<class T>
 		inline T vector2d<T>::getLength() const
 		{
-			return core::SharedMath::getInstance().squareroot(X * X + Y * Y);
+			return StaticMath::squareroot(X * X + Y * Y);
 		}
 
 		//! Get the squared length of this vector
@@ -552,9 +554,9 @@ namespace irrgame
 		inline vector2d<T>& vector2d<T>::rotateBy(f32 degrees,
 				const vector2d<T>& center)
 		{
-			degrees *= SharedMath::DegToRad;
-			const f32 cs = cos(degrees);
-			const f32 sn = sin(degrees);
+			degrees *= StaticMath::DegToRad;
+			const f32 cs = StaticMath::cosf_(degrees);
+			const f32 sn = StaticMath::sinf_(degrees);
 
 			X -= center.X;
 			Y -= center.Y;
@@ -571,9 +573,9 @@ namespace irrgame
 		inline vector2d<T>& vector2d<T>::normalize()
 		{
 			f32 length = (f32) (X * X + Y * Y);
-			if (core::SharedMath::getInstance().equals(length, 0.f))
+			if (StaticMath::equals(length, 0.f))
 				return *this;
-			length = core::SharedFastMath::getInstance().invertSqrt(length);
+			length = core::StaticMath::invertSqrt(length);
 			X = (T) (X * length);
 			Y = (T) (Y * length);
 			return *this;
@@ -590,13 +592,13 @@ namespace irrgame
 
 			if (Y > 0)
 				if (X > 0)
-					return atan(Y / X) * SharedMath::RadToDeg;
+					return atan(Y / X) * StaticMath::RadToDeg;
 				else
-					return 180.0 - atan(Y / -X) * SharedMath::RadToDeg;
+					return 180.0 - atan(Y / -X) * StaticMath::RadToDeg;
 			else if (X > 0)
-				return 360.0 - atan(-Y / X) * SharedMath::RadToDeg;
+				return 360.0 - atan(-Y / X) * StaticMath::RadToDeg;
 			else
-				return 180.0 + atan(-Y / -X) * SharedMath::RadToDeg;
+				return 180.0 + atan(-Y / -X) * StaticMath::RadToDeg;
 		}
 
 		//! Calculates the angle of this vector in degrees in the counter trigonometric sense.
@@ -609,10 +611,10 @@ namespace irrgame
 				return Y < 0 ? 90 : 270;
 
 			// don't use getLength here to avoid precision loss with s32 vectors
-			f32 tmp = Y / sqrt((f32) (X * X + Y * Y));
-			tmp = atan(
-					core::SharedMath::getInstance().squareroot(1 - tmp * tmp)
-							/ tmp) * SharedMath::RadToDeg;
+			f32 tmp = Y / StaticMath::squareroot((f32) (X * X + Y * Y));
+			tmp = StaticMath::atanf_(
+					StaticMath::squareroot(1 - tmp * tmp) / tmp)
+					* StaticMath::RadToDeg;
 
 			if (X > 0 && Y > 0)
 				return tmp + 270;
@@ -636,12 +638,14 @@ namespace irrgame
 				return 90.0;
 
 			tmp = tmp
-					/ core::SharedMath::getInstance().squareroot(
+					/ StaticMath::squareroot(
 							(f32) ((X * X + Y * Y) * (b.X * b.X + b.Y * b.Y)));
 			if (tmp < 0.0)
 				tmp = -tmp;
 
-			return atan(sqrt(1 - tmp * tmp) / tmp) * SharedMath::RadToDeg;
+			return StaticMath::atanf_(
+					StaticMath::squareroot(1 - tmp * tmp) / tmp)
+					* StaticMath::RadToDeg;
 		}
 
 		//! Returns if this vector interpreted as a point is on a line between two other points.
@@ -699,9 +703,5 @@ namespace irrgame
 	} // end namespace core
 } // end namespace irrgame
 
-//! Typedefs for vector2d
-typedef irrgame::core::vector2d<f32> vector2df;
-typedef irrgame::core::vector2d<s32> vector2di;
-
-#endif
+#endif /* VECTOR2D_H_ */
 

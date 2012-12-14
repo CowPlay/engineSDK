@@ -13,7 +13,7 @@ namespace irrgame
 {
 	namespace video
 	{
-		u32 vertex3d::getVertexPitchByType(E_VERTEX_TYPE vertexType)
+		u32 vertex3d::getVertexPitchByType(EVertexType vertexType)
 		{
 			u32 result = 0;
 
@@ -64,7 +64,7 @@ namespace irrgame
 		{
 		}
 
-		E_VERTEX_TYPE vertex3d::getType() const
+		EVertexType vertex3d::getType() const
 		{
 			return EVT_STANDARD;
 		}

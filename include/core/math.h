@@ -8,9 +8,9 @@
 #ifndef SDKMATH_H_
 #define SDKMATH_H_
 
-#include "core/math/SharedConverter.h"
+#include "core/math/StaticConverter.h"
 #include "core/math/SharedHeapsort.h"
-#include "core/math/SharedMath.h"
+#include "core/math/StaticMath.h"
 
 #include "core/math/matrix4.h"
 #include "core/math/quaternion.h"

@@ -2,10 +2,23 @@
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in irrlicht.h
 
-#ifndef __IRR_LINE_2D_H_INCLUDED__
-#define __IRR_LINE_2D_H_INCLUDED__
+#ifndef LINE2D_H_
+#define LINE2D_H_
 
 #include "core/shapes/vector2d.h"
+
+namespace irrgame
+{
+	namespace core
+	{
+		template<class T>
+		class line2d;
+	}  // namespace core
+}  // namespace irrgame
+
+//! Typedefs for line2d
+typedef irrgame::core::line2d<f32> line2df;
+typedef irrgame::core::line2d<s32> line2di;
 
 namespace irrgame
 {
@@ -274,12 +287,12 @@ namespace irrgame
 					* (Start.Y - l.Start.Y)
 					- (End.Y - Start.Y) * (Start.X - l.Start.X));
 
-			if (SharedMath::getInstance().equals(commonDenominator, 0.f))
+			if (StaticMath::equals(commonDenominator, 0.f))
 			{
 				// The lines are either coincident or parallel
 				// if both numerators are 0, the lines are coincident
-				if (SharedMath::getInstance().equals(numeratorA, 0.f)
-						&& SharedMath::getInstance().equals(numeratorB, 0.f))
+				if (StaticMath::equals(numeratorA, 0.f)
+						&& StaticMath::equals(numeratorB, 0.f))
 				{
 					// Try and find a common endpoint
 					if (l.Start == Start || l.End == Start)
@@ -452,9 +465,5 @@ namespace irrgame
 	} // end namespace core
 } // end namespace irrgame
 
-//! Typedefs for line2d
-typedef irrgame::core::line2d<f32> line2df;
-typedef irrgame::core::line2d<s32> line2di;
-
-#endif
+#endif /* LINE2D_H_ */
 

@@ -8,6 +8,8 @@
 #ifndef SMATERIALGROUP_H_
 #define SMATERIALGROUP_H_
 
+#include "core/collections/stringc.h"
+
 namespace irrgame
 {
 	namespace scene
@@ -32,45 +34,9 @@ namespace irrgame
 			public:
 
 				core::stringc MaterialName;
-				u16 faceCount;
-				u16* faces;
+				u16 FaceCount;
+				u16* Faces;
 		};
-
-		//! Default constructor
-		SMaterialGroup::SMaterialGroup() :
-				faceCount(0), faces(0)
-		{
-		}
-
-		//! Copy constructor
-		SMaterialGroup::SMaterialGroup(const SMaterialGroup& other)
-		{
-			*this = other;
-		}
-
-		//! Destructor
-		SMaterialGroup::~SMaterialGroup()
-		{
-			clear();
-		}
-
-		void SMaterialGroup::clear()
-		{
-			delete[] faces;
-			faces = 0;
-			faceCount = 0;
-		}
-
-		void SMaterialGroup::operator=(const SMaterialGroup& other)
-		{
-			MaterialName = other.MaterialName;
-			faceCount = other.faceCount;
-			faces = new u16[faceCount];
-			for (u32 i = 0; i < faceCount; ++i)
-			{
-				faces[i] = other.faces[i];
-			}
-		}
 
 	}  // namespace scene
 }  // namespace irrgame

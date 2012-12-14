@@ -11,7 +11,7 @@ namespace irrgame
 	{
 
 		//! Material flags
-		enum E_MATERIAL_FLAG
+		enum EMaterialFlag
 		{
 			//! Draw as wireframe or filled triangles? Default: false
 			EMF_WIREFRAME = 0x1,
@@ -75,7 +75,10 @@ namespace irrgame
 			EMF_COLOR_MASK = 0x8000,
 
 			//! ColorMaterial enum for vertex color interpretation
-			EMF_COLOR_MATERIAL = 0x10000
+			EMF_COLOR_MATERIAL = 0x10000,
+
+			//! Not used
+			EMF_COUNT
 		};
 
 	} // end namespace video

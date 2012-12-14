@@ -1,26 +1,25 @@
 ///*
-// * SMesh.cpp
+// * CMesh.cpp
 // *
-// *  Created on: Nov 12, 2012
+// *  Created on: Dec 12, 2012
 // *      Author: gregorytkach
 // */
-//
-//#include "scene/mesh/SMesh.h"
+//#include "CMesh.h"
 //
 //namespace irrgame
 //{
 //	namespace scene
 //	{
 //		//! Default constructor
-//		SMesh::SMesh()
+//		CMesh::CMesh()
 //		{
 //#ifdef DEBUG
-//			setDebugName("SMesh");
+//			setDebugName("CMesh");
 //#endif
 //		}
 //
 //		//! Destructor
-//		SMesh::~SMesh()
+//		CMesh::~CMesh()
 //		{
 //			// drop buffers
 //			for (u32 i = 0; i < MeshBuffers.size(); ++i)
@@ -30,19 +29,19 @@
 //		}
 //
 //		//! returns amount of mesh buffers.
-//		u32 SMesh::getMeshBufferCount() const
+//		u32 CMesh::getMeshBufferCount() const
 //		{
 //			return MeshBuffers.size();
 //		}
 //
 //		//! returns pointer to a mesh buffer
-//		IMeshBuffer* SMesh::getMeshBuffer(u32 nr) const
+//		IMeshBuffer* CMesh::getMeshBuffer(u32 nr) const
 //		{
 //			return MeshBuffers[nr];
 //		}
 //
 //		//! returns a meshbuffer which fits a material
-//		IMeshBuffer* SMesh::getMeshBuffer(
+//		IMeshBuffer* CMesh::getMeshBuffer(
 //				const video::SMaterial & material) const
 //		{
 //			IMeshBuffer* result = 0;
@@ -60,19 +59,19 @@
 //		}
 //
 //		//! returns an axis aligned bounding box
-//		const aabbox3df& SMesh::getBoundingBox() const
+//		const aabbox3df& CMesh::getBoundingBox() const
 //		{
 //			return BoundingBox;
 //		}
 //
 //		//! set user axis aligned bounding box
-//		void SMesh::setBoundingBox(const aabbox3df& box)
+//		void CMesh::setBoundingBox(const aabbox3df& box)
 //		{
 //			BoundingBox = box;
 //		}
 //
 //		//! recalculates the bounding box
-//		void SMesh::recalculateBoundingBox()
+//		void CMesh::recalculateBoundingBox()
 //		{
 //			if (MeshBuffers.size())
 //			{
@@ -90,7 +89,7 @@
 //		}
 //
 //		//! adds a MeshBuffer
-//		void SMesh::addMeshBuffer(IMeshBuffer* value)
+//		void CMesh::addMeshBuffer(IMeshBuffer* value)
 //		{
 //			IRR_ASSERT(value);
 //
@@ -99,7 +98,7 @@
 //		}
 //
 //		//! sets a flag of all contained materials to a new value
-//		void SMesh::setMaterialFlag(video::E_MATERIAL_FLAG flag, bool newvalue)
+//		void CMesh::setMaterialFlag(video::EMaterialFlag flag, bool newvalue)
 //		{
 //			for (u32 i = 0; i < MeshBuffers.size(); ++i)
 //			{
@@ -108,8 +107,8 @@
 //		}
 //
 //		//! set the hardware mapping hint, for driver
-//		void SMesh::setHardwareMappingHint(E_HARDWARE_MAPPING newMappingHint,
-//				E_BUFFER_TYPE buffer)
+//		void CMesh::setHardwareMappingHint(EHardwareMapping newMappingHint,
+//				EBufferType buffer)
 //		{
 //			for (u32 i = 0; i < MeshBuffers.size(); ++i)
 //			{
@@ -118,7 +117,7 @@
 //		}
 //
 //		//! flags the meshbuffer as changed, reloads hardware buffers
-//		void SMesh::setDirty(E_BUFFER_TYPE buffer)
+//		void CMesh::setDirty(EBufferType buffer)
 //		{
 //			for (u32 i = 0; i < MeshBuffers.size(); ++i)
 //			{

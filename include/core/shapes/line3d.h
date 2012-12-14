@@ -2,10 +2,23 @@
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in irrlicht.h
 
-#ifndef __IRR_LINE_3D_H_INCLUDED__
-#define __IRR_LINE_3D_H_INCLUDED__
+#ifndef LINE3D_
+#define LINE3D_
 
 #include "core/shapes/vector3d.h"
+
+namespace irrgame
+{
+	namespace core
+	{
+		template<class T>
+		class line3d;
+	}  // namespace core
+}  // namespace irrgame
+
+//! Typedefs for line3d
+typedef irrgame::core::line3d<f32> line3df;
+typedef irrgame::core::line3d<s32> line3di;
 
 namespace irrgame
 {
@@ -274,16 +287,12 @@ namespace irrgame
 			if (d < 0.0)
 				return false;
 
-			outdistance = v - core::SharedMath::getInstance().squareroot(d);
+			outdistance = v - StaticMath::squareroot(d);
 			return true;
 		}
 
 	} // end namespace core
 } // end namespace irrgame
 
-//! Typedefs for line3d
-typedef irrgame::core::line3d<f32> line3df;
-typedef irrgame::core::line3d<s32> line3di;
-
-#endif
+#endif /* LINE3D_ */
 

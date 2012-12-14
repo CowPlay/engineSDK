@@ -120,7 +120,7 @@ namespace irrgame
 		}
 
 		//! Sets the Material flag to the given value
-		void SMaterial::setFlag(E_MATERIAL_FLAG flag, bool value)
+		void SMaterial::setFlag(EMaterialFlag flag, bool value)
 		{
 			switch (flag)
 			{
@@ -245,7 +245,7 @@ namespace irrgame
 		}
 
 		//! Gets the Material flag
-		bool SMaterial::getFlag(E_MATERIAL_FLAG flag) const
+		bool SMaterial::getFlag(EMaterialFlag flag) const
 		{
 			bool result = false;
 

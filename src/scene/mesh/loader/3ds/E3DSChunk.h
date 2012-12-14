@@ -12,6 +12,7 @@ namespace irrgame
 {
 	namespace scene
 	{
+		//! Represents list of 3ds file chunks
 		enum E3DSChunk
 		{
 			// Primary chunk

@@ -7,7 +7,8 @@
 
 #include "video/color/SColor.h"
 #include "video/color/SharedColorConverter.h"
-#include "video/utils/SharedVideoUtils.h"
+#include "video/utils/StaticVideoUtils.h"
+#include "core/math/SharedMath.h"
 #include "core/math/SharedFastMath.h"
 
 namespace irrgame
@@ -63,12 +64,12 @@ namespace irrgame
 		f32 SColor::getLightness() const
 		{
 			return 0.5f
-					* (core::SharedMath::getInstance().max(
-							core::SharedMath::getInstance().max(getRed(),
-									getGreen()), getBlue())
-							+ core::SharedMath::getInstance().min(
-									core::SharedMath::getInstance().min(
-											getRed(), getGreen()), getBlue()));
+					* (core::StaticMath::maxi(
+							core::StaticMath::maxi(getRed(), getGreen()),
+							getBlue())
+							+ core::StaticMath::mini(
+									core::StaticMath::mini(getRed(),
+											getGreen()), getBlue()));
 		}
 
 		//! Get luminance of the color in the range [0,255].
@@ -155,20 +156,16 @@ namespace irrgame
 		SColor SColor::operator+(const SColor& other) const
 		{
 			return SColor(
-					core::SharedMath::getInstance().min(
-							getAlpha() + other.getAlpha(), 255u),
-					core::SharedMath::getInstance().min(
-							getRed() + other.getRed(), 255u),
-					core::SharedMath::getInstance().min(
-							getGreen() + other.getGreen(), 255u),
-					core::SharedMath::getInstance().min(
-							getBlue() + other.getBlue(), 255u));
+					core::StaticMath::min(getAlpha() + other.getAlpha(), 255u),
+					core::StaticMath::min(getRed() + other.getRed(), 255u),
+					core::StaticMath::min(getGreen() + other.getGreen(), 255u),
+					core::StaticMath::min(getBlue() + other.getBlue(), 255u));
 		}
 
 		//! Interpolates the color with a f32 value to another color
 		SColor SColor::getInterpolated(const SColor &other, f32 d) const
 		{
-			d = core::SharedMath::getInstance().clamp(d, 0.f, 1.f);
+			d = core::StaticMath::clamp(d, 0.f, 1.f);
 			const f32 inv = 1.0f - d;
 			return SColor((u32) (other.getAlpha() * inv + getAlpha() * d),
 					(u32) (other.getRed() * inv + getRed() * d),
@@ -181,27 +178,27 @@ namespace irrgame
 				const SColor& c2, f32 d) const
 		{
 			// this*(1-d)*(1-d) + 2 * c1 * (1-d) + c2 * d * d;
-			d = core::SharedMath::getInstance().clamp(d, 0.f, 1.f);
+			d = core::StaticMath::clamp(d, 0.f, 1.f);
 			const f32 inv = 1.f - d;
 			const f32 mul0 = inv * inv;
 			const f32 mul1 = 2.f * d * inv;
 			const f32 mul2 = d * d;
 
 			return SColor(
-					core::SharedMath::getInstance().clamp(
-							core::SharedFastMath::getInstance().floor32(
+					core::StaticMath::clamp(
+							core::StaticFastMath::floorf(
 									getAlpha() * mul0 + c1.getAlpha() * mul1
 											+ c2.getAlpha() * mul2), 0, 255),
-					core::SharedMath::getInstance().clamp(
-							core::SharedFastMath::getInstance().floor32(
+					core::StaticMath::clamp(
+							core::StaticFastMath::getInstance().floorf(
 									getRed() * mul0 + c1.getRed() * mul1
 											+ c2.getRed() * mul2), 0, 255),
-					core::SharedMath::getInstance().clamp(
-							core::SharedFastMath::getInstance().floor32(
+					core::StaticMath::clamp(
+							core::StaticFastMath::getInstance().floorf(
 									getGreen() * mul0 + c1.getGreen() * mul1
 											+ c2.getGreen() * mul2), 0, 255),
-					core::SharedMath::getInstance().clamp(
-							core::SharedFastMath::getInstance().floor32(
+					core::StaticMath::clamp(
+							core::StaticFastMath::getInstance().floorf(
 									getBlue() * mul0 + c1.getBlue() * mul1
 											+ c2.getBlue() * mul2), 0, 255));
 		}

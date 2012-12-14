@@ -37,6 +37,8 @@ namespace irrgame
 		//! Returns BMP image
 		IImage* SharedImageLoaderBmp::createImage(io::IReadFile* file)
 		{
+			IRR_ASSERT(file);
+
 			SBMPHeader header;
 
 			file->read(&header, sizeof(header));
@@ -126,7 +128,7 @@ namespace irrgame
 			{
 				case 1:
 				{
-					result = createEmptyImage(ECF_A1R5G5B5, dim);//new CImage(ECF_A1R5G5B5, dim);
+					result = createEmptyImage(ECF_A1R5G5B5, dim); //new CImage(ECF_A1R5G5B5, dim);
 
 					SharedColorConverter::getInstance().convert1BitTo16Bit(
 							bmpData, (s16*) result->lock(), header.Width,

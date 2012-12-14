@@ -2,16 +2,29 @@
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in irrlicht.h
 
-#ifndef __IRR_MAP_H_INCLUDED__
-#define __IRR_MAP_H_INCLUDED__
+#ifndef MAP_H_
+#define MAP_H_
 
+#include "compileConfig.h"
 #include "core/collections/map/CAccessClass.h"
 #include "core/collections/map/CMapIterator.h"
 #include "core/collections/map/CParentFirstIterator.h"
 #include "core/collections/map/CParentLastIterator.h"
 
-#include "core/math/SharedMath.h"
+#include "core/math/StaticMath.h"
 #include "threads/IMonitor.h"
+
+namespace irrgame
+{
+	namespace core
+	{
+		template<class KType, class VType>
+		class map;
+	}  // namespace core
+}  // namespace irrgame
+
+//! map typedefs
+typedef irrgame::core::map<s32, s32> DictIntInt;
 
 namespace irrgame
 {
@@ -466,9 +479,9 @@ namespace irrgame
 			other.Monitor->enter();
 			Monitor->enter();
 
-			SharedMath::getInstance().swap(Monitor, other.Monitor);
-			SharedMath::getInstance().swap(Root, other.Root);
-			SharedMath::getInstance().swap(Size, other.Size);
+			StaticMath::swap(Monitor, other.Monitor);
+			StaticMath::swap(Root, other.Root);
+			StaticMath::swap(Size, other.Size);
 
 			Monitor->exit();
 			other.Monitor->exit();
@@ -649,7 +662,4 @@ namespace irrgame
 	} // end namespace core
 } // end namespace irrgame
 
-//! map typedefs
-typedef irrgame::core::map<s32, s32> DictIntInt;
-
-#endif // __IRR_MAP_H_INCLUDED__
+#endif // MAP_H_

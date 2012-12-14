@@ -8,6 +8,8 @@
 #ifndef SCHUNKHEADER_H_
 #define SCHUNKHEADER_H_
 
+#include "compileConfig.h"
+
 namespace irrgame
 {
 	namespace scene
@@ -26,8 +28,8 @@ namespace irrgame
 		struct SChunkHeader
 		{
 			public:
-				u16 id;
-				s32 length;
+				u16 ID;
+				s32 Length;
 		}PACK_STRUCT;
 
 	// Default alignment

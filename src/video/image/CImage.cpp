@@ -5,8 +5,8 @@
 #include "CImage.h"
 #include "video/color/SharedColorConverter.h"
 #include "video/blit/blit.h"
-#include "video/utils/SharedVideoUtils.h"
-#include "core/math/SharedFastMath.h"
+#include "video/utils/StaticVideoUtils.h"
+#include "core/math/StaticMath.h"
 #include "core/collections/stringc.h"
 #include "io/utils/StaticIOUtils.h"
 #include "io/IReadFile.h"
@@ -60,9 +60,8 @@ namespace irrgame
 			setDebugName("CImage");
 #endif
 
-			BytesPerPixel =
-					SharedVideoUtils::getInstance().getBitsPerPixelFromFormat(
-							Format) / 8;
+			BytesPerPixel = StaticVideoUtils::getBitsPerPixelFromFormat(Format)
+					/ 8;
 
 			// Pitch should be aligned...
 			Pitch = BytesPerPixel * Size.Width;
@@ -102,8 +101,7 @@ namespace irrgame
 		//! Returns bits per pixel.
 		u32 CImage::getBitsPerPixel() const
 		{
-			return SharedVideoUtils::getInstance().getBitsPerPixelFromFormat(
-					Format);
+			return StaticVideoUtils::getBitsPerPixelFromFormat(Format);
 		}
 
 		//! Returns bytes per pixel
@@ -235,8 +233,7 @@ namespace irrgame
 				{
 					u32 * dest = (u32*) (Data + (y * Pitch) + (x << 2));
 					*dest = blend ?
-							SharedVideoUtils::getInstance().PixelBlend32(*dest,
-									color.color) :
+							StaticVideoUtils::PixelBlend32(*dest, color.color) :
 							color.color;
 				}
 					break;
@@ -336,9 +333,8 @@ namespace irrgame
 			if (!target || !width || !height)
 				return;
 
-			const u32 bpp =
-					SharedVideoUtils::getInstance().getBitsPerPixelFromFormat(
-							format) / 8;
+			const u32 bpp = StaticVideoUtils::getBitsPerPixelFromFormat(format)
+					/ 8;
 			if (0 == pitch)
 			{
 				pitch = width * bpp;
@@ -422,8 +418,8 @@ namespace irrgame
 
 			target->lock();
 
-			s32 fx = core::SharedFastMath::getInstance().ceil32(sourceXStep);
-			s32 fy = core::SharedFastMath::getInstance().ceil32(sourceYStep);
+			s32 fx = core::StaticMath::ceil_(sourceXStep);
+			s32 fy = core::StaticMath::ceil_(sourceYStep);
 			f32 sx;
 			f32 sy;
 
@@ -434,11 +430,9 @@ namespace irrgame
 				for (u32 x = 0; x != destSize.Width; ++x)
 				{
 					target->setPixel(x, y,
-							getPixelBox(
-									core::SharedFastMath::getInstance().floor32(
-											sx),
-									core::SharedFastMath::getInstance().floor32(
-											sy), fx, fy, bias), blend);
+							getPixelBox(core::StaticMath::floor_(sx),
+									core::StaticMath::floor_(sy), fx, fy, bias),
+							blend);
 					sx += sourceXStep;
 				}
 				sy += sourceYStep;
@@ -506,8 +500,7 @@ namespace irrgame
 				return;
 			}
 
-			SharedVideoUtils::getInstance().memset32(Data, c,
-					getImageDataSizeInBytes());
+			StaticVideoUtils::memset32(Data, c, getImageDataSizeInBytes());
 		}
 
 		//! get a filtered pixel
@@ -521,11 +514,8 @@ namespace irrgame
 			{
 				for (s32 dy = 0; dy != fy; ++dy)
 				{
-					c = getPixel(
-							core::SharedMath::getInstance().s32Min(x + dx,
-									Size.Width - 1),
-							core::SharedMath::getInstance().s32Min(y + dy,
-									Size.Height - 1));
+					c = getPixel(core::StaticMath::mini(x + dx, Size.Width - 1),
+							core::StaticMath::mini(y + dy, Size.Height - 1));
 
 					a += c.getAlpha();
 					r += c.getRed();
@@ -535,16 +525,12 @@ namespace irrgame
 
 			}
 
-			s32 sdiv = SharedVideoUtils::getInstance().s32_log2_s32(fx * fy);
+			s32 sdiv = StaticVideoUtils::s32_log2_s32(fx * fy);
 
-			a = core::SharedMath::getInstance().s32Clamp((a >> sdiv) + bias, 0,
-					255);
-			r = core::SharedMath::getInstance().s32Clamp((r >> sdiv) + bias, 0,
-					255);
-			g = core::SharedMath::getInstance().s32Clamp((g >> sdiv) + bias, 0,
-					255);
-			b = core::SharedMath::getInstance().s32Clamp((b >> sdiv) + bias, 0,
-					255);
+			a = core::StaticMath::clamp((a >> sdiv) + bias, 0, 255);
+			r = core::StaticMath::clamp((r >> sdiv) + bias, 0, 255);
+			g = core::StaticMath::clamp((g >> sdiv) + bias, 0, 255);
+			b = core::StaticMath::clamp((b >> sdiv) + bias, 0, 255);
 
 			c.set(a, r, g, b);
 			return c;
@@ -614,20 +600,20 @@ namespace irrgame
 
 			IImage* result = 0;
 
-			core::stringc* extension = io::StaticIOUtils::getFileNameExtension(
+			core::stringc extension = io::StaticIOUtils::getFileNameExtension(
 					file->getFileName());
 
 			//bmp image support
-			if (extension->equalsIgnoreCase("bmp"))
+			if (extension.equalsIgnoreCase("bmp"))
 			{
 				result = SharedImageLoaderBmp::getInstance().createImage(file);
 			}
-			else if (extension->equalsIgnoreCase("jpg")
-					|| extension->equalsIgnoreCase("jpeg"))
+			else if (extension.equalsIgnoreCase("jpg")
+					|| extension.equalsIgnoreCase("jpeg"))
 			{
 				result = SharedImageLoaderJpg::getInstance().createImage(file);
 			}
-			else if (extension->equalsIgnoreCase("png"))
+			else if (extension.equalsIgnoreCase("png"))
 			{
 				result = SharedImageLoaderPng::getInstance().createImage(file);
 			}
@@ -635,11 +621,6 @@ namespace irrgame
 			{
 				//Not supported image file format
 				IRR_ASSERT(false);
-			}
-
-			if (extension)
-			{
-				delete extension;
 			}
 
 			return result;

@@ -5,7 +5,7 @@
 #include "video/color/SharedColorConverter.h"
 #include "video/color.h"
 #include "utils/StaticByteSwap.h"
-#include "video/utils/SharedVideoUtils.h"
+#include "video/utils/StaticVideoUtils.h"
 #include "string.h"
 
 namespace irrgame

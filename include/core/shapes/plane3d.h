@@ -2,12 +2,25 @@
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in irrlicht.h
 
-#ifndef __IRR_PLANE_3D_H_INCLUDED__
-#define __IRR_PLANE_3D_H_INCLUDED__
+#ifndef PLANE3D_H_
+#define PLANE3D_H_
 
-#include "core/math/SharedFastMath.h"
+#include "core/math/StaticMath.h"
 #include "core/shapes/vector3d.h"
 #include "EIntersectionRelation3D.h"
+
+namespace irrgame
+{
+	namespace core
+	{
+		template<class T>
+		class plane3d;
+	}  // namespace core
+}  // namespace irrgame
+
+//! Typedefs for plane3d
+typedef irrgame::core::plane3d<f32> plane3df;
+typedef irrgame::core::plane3d<s32> plane3di;
 
 namespace irrgame
 {
@@ -199,9 +212,9 @@ namespace irrgame
 		template<class T>
 		inline bool plane3d<T>::operator==(const plane3d<T>& other) const
 		{
-			return (SharedMath::getInstance().equals(D, other.D)
-					&& Normal == other.Normal);
+			return (StaticMath::equals(D, other.D) && Normal == other.Normal);
 		}
+
 		template<class T>
 		inline bool plane3d<T>::operator!=(const plane3d<T>& other) const
 		{
@@ -290,11 +303,11 @@ namespace irrgame
 
 			const T d = Normal.dotProduct(point) + D;
 
-			if (d < -SharedMath::RoundErrF32)
+			if (d < -StaticMath::RoundErrF32)
 			{
 				result = ISREL3D_BACK;
 			}
-			else if (d > SharedMath::RoundErrF32)
+			else if (d > StaticMath::RoundErrF32)
 			{
 				result = ISREL3D_FRONT;
 			}
@@ -327,7 +340,7 @@ namespace irrgame
 		{
 			vector3d<T> cross = other.Normal.crossProduct(Normal);
 
-			return cross.getLength() > SharedMath::RoundErrF32;
+			return cross.getLength() > StaticMath::RoundErrF32;
 		}
 
 		//! Intersects this plane with another.
@@ -343,7 +356,7 @@ namespace irrgame
 			const T fn11 = other.Normal.getLength();
 			const f32 det = fn00 * fn11 - fn01 * fn01;
 
-			if (fabs(det) > SharedMath::RoundErrF32)
+			if (StaticMath::fabsf_(det) > StaticMath::RoundErrF32)
 			{
 				const f32 invdet = 1.0 / det;
 				const f32 fc0 = (fn11 * -D + fn01 * other.D) * invdet;
@@ -382,7 +395,7 @@ namespace irrgame
 		{
 			const f32 d = Normal.dotProduct(lookDirection);
 
-			return SharedFastMath::F32_LOWER_EQUAL_0(d);
+			return StaticMath::lowerOrEqualZero(d);
 		}
 
 		//! Get the distance to a point.
@@ -395,9 +408,5 @@ namespace irrgame
 	} // end namespace core
 } // end namespace irrgame
 
-//! Typedefs for plane3d
-typedef irrgame::core::plane3d<f32> plane3df;
-typedef irrgame::core::plane3d<s32> plane3di;
-
-#endif
+#endif /* PLANE3D_H_ */
 

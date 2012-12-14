@@ -16,7 +16,7 @@ namespace irrgame
 	IReferenceCountedSafe::IReferenceCountedSafe() :
 			IReferenceCounted(), Monitor(0)
 	{
-		Monitor = threads::IMonitor::createMonitor();
+//		Monitor = threads::IMonitor::createMonitor();
 	}
 
 	//! Destructor.
@@ -29,9 +29,9 @@ namespace irrgame
 	//! Grabs the object. Increments the reference counter by one.
 	void IReferenceCountedSafe::grab() const
 	{
-		Monitor->enter();
+//		Monitor->enter();
 		++ReferenceCounter;
-		Monitor->exit();
+//		Monitor->exit();
 	}
 
 	//! Drops the object. Decrements the reference counter by one.
@@ -40,9 +40,9 @@ namespace irrgame
 		// someone is doing bad reference counting.
 		IRR_ASSERT(ReferenceCounter > 0)
 
-		Monitor->enter();
+//		Monitor->enter();
 		--ReferenceCounter;
-		Monitor->exit();
+//		Monitor->exit();
 
 		if (!ReferenceCounter)
 		{

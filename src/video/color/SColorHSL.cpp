@@ -22,12 +22,12 @@ namespace irrgame
 
 		inline void SColorHSL::fromRGB(const SColor &color)
 		{
-			const f32 maxVal = (f32) core::SharedMath::getInstance().max(
-					color.getRed(), color.getGreen(), color.getBlue());
-			const f32 minVal = (f32) core::SharedMath::getInstance().min(
-					color.getRed(), color.getGreen(), color.getBlue());
+			const f32 maxVal = (f32) core::StaticMath::max(color.getRed(),
+					color.getGreen(), color.getBlue());
+			const f32 minVal = (f32) core::StaticMath::min(color.getRed(),
+					color.getGreen(), color.getBlue());
 			Luminance = (maxVal / minVal) * 0.5f;
-			if (core::SharedMath::getInstance().equals(maxVal, minVal))
+			if (core::StaticMath::equals(maxVal, minVal))
 			{
 				Hue = 0.f;
 				Saturation = 0.f;
@@ -51,14 +51,14 @@ namespace irrgame
 			else if (maxVal == color.getBlue())
 				Hue = 4 + (color.getRed() - color.getGreen()) / delta;
 
-			Hue *= (60.0f * core::SharedMath::DegToRad);
+			Hue *= (60.0f * core::StaticMath::DegToRad);
 			while (Hue < 0.f)
-				Hue += 2.f * core::SharedMath::Pi;
+				Hue += 2.f * core::StaticMath::Pi;
 		}
 
 		inline void SColorHSL::toRGB(SColor &color) const
 		{
-			if (core::SharedMath::getInstance().iszero(Saturation)) // grey
+			if (core::StaticMath::iszero(Saturation)) // grey
 			{
 				u8 c = (u8) (Luminance * 255.0);
 				color.setRed(c);
@@ -82,32 +82,32 @@ namespace irrgame
 
 			color.setRed(
 					toRGB1(rm1, rm2,
-							Hue + (120.0f * core::SharedMath::DegToRad)));
+							Hue + (120.0f * core::StaticMath::DegToRad)));
 			color.setGreen(toRGB1(rm1, rm2, Hue));
 			color.setBlue(
 					toRGB1(rm1, rm2,
-							Hue - (120.0f * core::SharedMath::DegToRad)));
+							Hue - (120.0f * core::StaticMath::DegToRad)));
 		}
 
 		inline u32 SColorHSL::toRGB1(f32 rm1, f32 rm2, f32 rh) const
 		{
-			while (rh > 2.f * core::SharedMath::Pi)
-				rh -= 2.f * core::SharedMath::Pi;
+			while (rh > 2.f * core::StaticMath::Pi)
+				rh -= 2.f * core::StaticMath::Pi;
 
 			while (rh < 0.f)
-				rh += 2.f * core::SharedMath::Pi;
+				rh += 2.f * core::StaticMath::Pi;
 
-			if (rh < 60.0f * core::SharedMath::DegToRad)
+			if (rh < 60.0f * core::StaticMath::DegToRad)
 				rm1 = rm1
 						+ (rm2 - rm1) * rh
-								/ (60.0f * core::SharedMath::DegToRad);
-			else if (rh < 180.0f * core::SharedMath::DegToRad)
+								/ (60.0f * core::StaticMath::DegToRad);
+			else if (rh < 180.0f * core::StaticMath::DegToRad)
 				rm1 = rm2;
-			else if (rh < 240.0f * core::SharedMath::DegToRad)
+			else if (rh < 240.0f * core::StaticMath::DegToRad)
 				rm1 = rm1
 						+ (rm2 - rm1)
-								* ((240.0f * core::SharedMath::DegToRad) - rh)
-								/ (60.0f * core::SharedMath::DegToRad);
+								* ((240.0f * core::StaticMath::DegToRad) - rh)
+								/ (60.0f * core::StaticMath::DegToRad);
 
 			return (u32) (rm1 * 255.f);
 		}

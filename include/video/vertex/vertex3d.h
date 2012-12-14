@@ -22,7 +22,7 @@ namespace irrgame
 				 */
 			public:
 
-				static u32 getVertexPitchByType(E_VERTEX_TYPE vertexType);
+				static u32 getVertexPitchByType(EVertexType vertexType);
 
 				/*
 				 * Instance methods
@@ -40,7 +40,7 @@ namespace irrgame
 				vertex3d(const vector3df& pos, const vector3df& normal,
 						SColor color, const vector2df& tcoords);
 
-				E_VERTEX_TYPE getType() const;
+				EVertexType getType() const;
 
 				/*
 				 * Operators

@@ -6,7 +6,7 @@
  */
 #include "CStringAttribute.h"
 #include "io/utils/StaticIOUtils.h"
-#include "core/math/SharedConverter.h"
+#include "core/math/StaticConverter.h"
 
 namespace irrgame
 {
@@ -35,8 +35,7 @@ namespace irrgame
 
 		f32 CStringAttribute::getFloat()
 		{
-			return core::SharedConverter::getInstance().convertToFloat(
-					Value.cStr());
+			return core::StaticConverter::convertToFloat(Value.cStr());
 		}
 
 		bool CStringAttribute::getBool()

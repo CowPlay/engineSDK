@@ -12,26 +12,21 @@
 
 namespace irrgame
 {
-
 	namespace scene
 	{
+
 		struct SChunkData
 		{
 			public:
+				//! Default constructor
 				SChunkData();
 
 			public:
-				SChunkHeader header;
-				s32 read;
+				SChunkHeader Header;
+				s32 Read;
 		};
 
-		inline SChunkData::SChunkData() :
-				read(0)
-		{
-		}
-
 	} // namespace scene
-
 }  // namespace irrgame
 
 #endif /* SCHUNKDATA_H_ */

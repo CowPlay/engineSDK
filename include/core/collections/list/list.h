@@ -2,8 +2,8 @@
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in irrlicht.h
 
-#ifndef __IRR_LIST_H_INCLUDED__
-#define __IRR_LIST_H_INCLUDED__
+#ifndef LIST_H_
+#define LIST_H_
 
 #include "core/collections/list/SKListNode.h"
 #include "core/collections/list/iterators.h"
@@ -11,15 +11,30 @@
 #include "core/collections/ICollection.h"
 
 #include "core/allocator/allocatorFast.h"
-#include "core/math/SharedMath.h"
+#include "core/math/StaticMath.h"
 #include "threads/IMonitor.h"
 
 namespace irrgame
 {
 	namespace core
 	{
+		template<class T>
+		class list;
 
 		class stringc;
+	}  // namespace core
+}  // namespace irrgame
+
+//! list typedefs
+typedef irrgame::core::list<s32> listi;
+typedef irrgame::core::list<u32> listu;
+typedef irrgame::core::list<f32> listf;
+typedef irrgame::core::list<irrgame::core::stringc> liststr;
+
+namespace irrgame
+{
+	namespace core
+	{
 
 		//! Doubly linked list template.
 		template<class T>
@@ -525,10 +540,10 @@ namespace irrgame
 			other.Monitor->enter();
 			Monitor->enter();
 
-			SharedMath::getInstance().swap(First, other.First);
-			SharedMath::getInstance().swap(Last, other.Last);
-			SharedMath::getInstance().swap(Size, other.Size);
-			SharedMath::getInstance().swap(Allocator, other.Allocator);	// memory is still released by the same Allocator used for allocation
+			StaticMath::swap(First, other.First);
+			StaticMath::swap(Last, other.Last);
+			StaticMath::swap(Size, other.Size);
+			StaticMath::swap(Allocator, other.Allocator);// memory is still released by the same Allocator used for allocation
 
 			Monitor->exit();
 			other.Monitor->exit();
@@ -593,13 +608,7 @@ namespace irrgame
 		}
 
 	}	// end namespace core
-}	// end namespace irr
+}	// end namespace irrgame
 
-//! list typedefs
-typedef irrgame::core::list<s32> listi;
-typedef irrgame::core::list<u32> listu;
-typedef irrgame::core::list<f32> listf;
-typedef irrgame::core::list<irrgame::core::stringc> liststr;
-
-#endif
+#endif /* LIST_H_ */
 

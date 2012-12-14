@@ -53,7 +53,7 @@ namespace irrgame
 				//! constructor from S3DVertex
 				vertex3d2TCoords(vertex3d& o);
 
-				E_VERTEX_TYPE getType() const;
+				EVertexType getType() const;
 
 				/*
 				 * Operators

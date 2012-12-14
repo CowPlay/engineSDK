@@ -2,14 +2,27 @@
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in irrlicht.h
 
-#ifndef __IRR_TRIANGLE_3D_H_INCLUDED__
-#define __IRR_TRIANGLE_3D_H_INCLUDED__
+#ifndef TRIANGLE3D_H_
+#define TRIANGLE3D_H_
 
 #include "core/shapes/vector3d.h"
 #include "core/shapes/line3d.h"
 #include "core/shapes/plane3d.h"
 #include "core/shapes/aabbox3d.h"
-#include "core/math/SharedConverter.h"
+#include "core/math/StaticConverter.h"
+
+namespace irrgame
+{
+	namespace core
+	{
+		template<class T>
+		class triangle3d;
+	}  // namespace core
+}  // namespace irrgame
+
+//! Typedefs for triangle3d
+typedef irrgame::core::triangle3d<f32> triangle3df;
+typedef irrgame::core::triangle3d<s32> triangle3di;
 
 namespace irrgame
 {
@@ -278,10 +291,10 @@ namespace irrgame
 			f32 z = x + y - ac_bb;
 
 			// return sign(z) && !(sign(x)||sign(y))
-			return (((SharedConverter::getInstance().convertToUInt(z))
-					& ~((SharedConverter::getInstance().convertToUInt(x))
-							| (SharedConverter::getInstance().convertToUInt(y))))
-					& 0x80000000) != 0;
+			return (((StaticConverter::convertToUInt(z))
+					& ~((StaticConverter::convertToUInt(x))
+							| (StaticConverter::convertToUInt(y)))) & 0x80000000)
+					!= 0;
 		}
 
 		//! Get an intersection with a 3d line.
@@ -322,8 +335,7 @@ namespace irrgame
 			const vector3d<T> normal = getNormal().normalize();
 			T t2;
 
-			if (!SharedMath::getInstance().iszero(
-					t2 = normal.dotProduct(lineVect)))
+			if (!StaticMath::iszero(t2 = normal.dotProduct(lineVect)))
 			{
 
 				T d = pointA.dotProduct(normal);
@@ -349,10 +361,10 @@ namespace irrgame
 				const vector3d<T>& lookDirection) const
 		{
 			const vector3d<T> n = getNormal().normalize();
-			const f32 d = SharedConverter::getInstance().convertToFloat(
+			const f32 d = StaticConverter::convertToFloat(
 					n.dotProduct(lookDirection));
 
-			return SharedFastMath::getInstance().F32_LOWER_EQUAL_0(d);
+			return StaticMath::lowerOrEqualZero(d);
 		}
 
 		//! Get the plane of this triangle.
@@ -396,9 +408,5 @@ namespace irrgame
 	} // end namespace core
 } // end namespace irrgame
 
-//! Typedefs for triangle3d
-typedef irrgame::core::triangle3d<f32> triangle3df;
-typedef irrgame::core::triangle3d<s32> triangle3di;
-
-#endif
+#endif /* TRIANGLE3D_H_ */
 

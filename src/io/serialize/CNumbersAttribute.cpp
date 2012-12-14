@@ -582,16 +582,14 @@ namespace irrgame
 					if (IsFloat)
 					{
 						f32 c = 0;
-						c = core::SharedConverter::getInstance().convertToFloat(
-								P, true);
+						c = core::StaticConverter::convertToFloat(P, true);
 						ValueF[i] = c;
 					}
 					else
 					{
 						// todo: fix this to read ints properly
 						f32 c = 0;
-						c = core::SharedConverter::getInstance().convertToFloat(
-								P, true);
+						c = core::StaticConverter::convertToFloat(P, true);
 						ValueI[i] = (s32) c;
 
 					}

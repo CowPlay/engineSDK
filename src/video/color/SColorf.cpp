@@ -63,7 +63,7 @@ namespace irrgame
 		//! Interpolates the color with a f32 value to another color
 		SColorf SColorf::getInterpolated(const SColorf &other, f32 d) const
 		{
-			d = core::SharedMath::getInstance().clamp(d, 0.f, 1.f);
+			d = core::StaticMath::clamp(d, 0.f, 1.f);
 			const f32 inv = 1.0f - d;
 			return SColorf(other.Red * inv + Red * d,
 					other.Green * inv + Green * d, other.Blue * inv + Blue * d,
@@ -74,7 +74,7 @@ namespace irrgame
 		inline SColorf SColorf::getInterpolated_quadratic(const SColorf& c1,
 				const SColorf& c2, f32 d) const
 		{
-			d = core::SharedMath::getInstance().clamp(d, 0.f, 1.f);
+			d = core::StaticMath::clamp(d, 0.f, 1.f);
 			// this*(1-d)*(1-d) + 2 * c1 * (1-d) + c2 * d * d;
 			const f32 inv = 1.f - d;
 			const f32 mul0 = inv * inv;

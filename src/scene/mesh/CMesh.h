@@ -2,30 +2,30 @@
 //// This file is part of the "Irrlicht Engine".
 //// For conditions of distribution and use, see copyright notice in irrlicht.h
 //
-//#ifndef SMESH_H_INCLUDED__
-//#define SMESH_H_INCLUDED__
+//#ifndef CMESH_H_
+//#define CMESH_H_
 //
 //#include "IMesh.h"
-//#include "IMeshBuffer.h"
-//#include "EHardwareMapping.h"
-//#include "EBufferType.h"
-//#include "core/shapes/aabbox3d.h"
-//#include "core/collections/array.h"
-//#include "video/material/EMaterialFlags.h"
+////#include "IMeshBuffer.h"
+////#include "EHardwareMapping.h"
+////#include "EBufferType.h"
+////#include "core/shapes/aabbox3d.h"
+////#include "core/collections/array.h"
+////#include "video/material/EMaterialFlags.h"
 //
 //namespace irrgame
 //{
 //	namespace scene
 //	{
 //		//! Simple implementation of the IMesh interface.
-//		struct SMesh: public IMesh
+//		class CMesh: public IMesh
 //		{
 //			public:
 //				//! Default constructor
-//				SMesh();
+//				CMesh();
 //
 //				//! Destructor
-//				virtual ~SMesh();
+//				virtual ~CMesh();
 //
 //				//! returns amount of mesh buffers.
 //				virtual u32 getMeshBufferCount() const;
@@ -48,20 +48,20 @@
 //				void recalculateBoundingBox();
 //
 //				//! adds a MeshBuffer
-//				void addMeshBuffer(IMeshBuffer* buf);
+//				virtual void addMeshBuffer(IMeshBuffer* buf);
 //
 //				//! sets a flag of all contained materials to a new value
-//				virtual void setMaterialFlag(video::E_MATERIAL_FLAG flag,
+//				virtual void setMaterialFlag(video::EMaterialFlag flag,
 //						bool newvalue);
 //
 //				//! set the hardware mapping hint, for driver
 //				virtual void setHardwareMappingHint(
-//						E_HARDWARE_MAPPING newMappingHint,
-//						E_BUFFER_TYPE buffer = EBT_VERTEX_AND_INDEX);
+//						EHardwareMapping newMappingHint, EBufferType buffer =
+//								EBT_VERTEX_AND_INDEX);
 //
 //				//! flags the meshbuffer as changed, reloads hardware buffers
-//				virtual void setDirty(E_BUFFER_TYPE buffer =
-//						EBT_VERTEX_AND_INDEX);
+//				virtual void setDirty(
+//						EBufferType buffer = EBT_VERTEX_AND_INDEX);
 //
 //			public:
 //
@@ -75,5 +75,5 @@
 //	} // end namespace scene
 //} // end namespace irrgame
 //
-//#endif
+//#endif /* CMESH_H_ */
 //

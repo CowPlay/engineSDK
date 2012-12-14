@@ -5,9 +5,9 @@
  *      Author: gregorytkach
  */
 
-#include "video/utils/SharedVideoUtils.h"
-#include "core/math/SharedFastMath.h"
-#include "core/math/SharedConverter.h"
+#include "video/utils/StaticVideoUtils.h"
+#include "core/math/StaticMath.h"
+#include "core/math/StaticConverter.h"
 #include "AbsRectangle.h"
 
 namespace irrgame
@@ -15,29 +15,12 @@ namespace irrgame
 	namespace video
 	{
 
-		//! Singleton realization
-		SharedVideoUtils& SharedVideoUtils::getInstance()
-		{
-			static SharedVideoUtils instance;
-			return instance;
-		}
-
-		//! Default constructor. Should use only one time.
-		SharedVideoUtils::SharedVideoUtils()
-		{
-		}
-
-		//! Destructor. Should use only one time.
-		SharedVideoUtils::~SharedVideoUtils()
-		{
-		}
-
 		/*
-		 * Methods
+		 * Functions
 		 */
 
 		//! a more useful memset for pixel
-		void SharedVideoUtils::memset32(void * dest, const u32 value,
+		void StaticVideoUtils::memset32(void * dest, const u32 value,
 				u32 bytesize)
 		{
 			u32 * d = (u32*) dest;
@@ -75,7 +58,7 @@ namespace irrgame
 		 Pixel = dest * ( 1 - alpha ) + source * alpha
 		 alpha [0;256]
 		 */
-		u32 SharedVideoUtils::PixelBlend32(const u32 c2, const u32 c1,
+		u32 StaticVideoUtils::PixelBlend32(const u32 c2, const u32 c1,
 				u32 alpha)
 		{
 			u32 srcRB = c1 & 0x00FF00FF;
@@ -105,7 +88,7 @@ namespace irrgame
 		 Pixel = dest * ( 1 - alpha ) + source * alpha
 		 alpha [0;32]
 		 */
-		u16 SharedVideoUtils::PixelBlend16(const u16 c2, const u32 c1,
+		u16 StaticVideoUtils::PixelBlend16(const u16 c2, const u32 c1,
 				const u16 alpha)
 		{
 			const u16 srcRB = c1 & 0x7C1F;
@@ -132,14 +115,14 @@ namespace irrgame
 		}
 
 		// 1 - Bit Alpha Blending
-		u16 SharedVideoUtils::PixelBlend16(const u16 c2, const u16 c1)
+		u16 StaticVideoUtils::PixelBlend16(const u16 c2, const u16 c1)
 		{
 			u16 mask = ((c1 & 0x8000) >> 15) + 0x7fff;
 			return (c2 & mask) | (c1 & ~mask);
 		}
 
 		// 1 - Bit Alpha Blending 16Bit SIMD
-		u32 SharedVideoUtils::PixelBlend16_simd(const u32 c2, const u32 c1)
+		u32 StaticVideoUtils::PixelBlend16_simd(const u32 c2, const u32 c1)
 		{
 			u32 mask = ((c1 & 0x80008000) >> 15) + 0x7fff7fff;
 			return (c2 & mask) | (c1 & ~mask);
@@ -148,7 +131,7 @@ namespace irrgame
 		/*!
 		 Pixel = dest * ( 1 - SourceAlpha ) + source * SourceAlpha
 		 */
-		u32 SharedVideoUtils::PixelBlend32(const u32 c2, const u32 c1)
+		u32 StaticVideoUtils::PixelBlend32(const u32 c2, const u32 c1)
 		{
 			// alpha test
 			u32 alpha = c1 & 0xFF000000;
@@ -192,7 +175,7 @@ namespace irrgame
 		/*
 		 Pixel = c0 * (c1/31).
 		 */
-		u16 SharedVideoUtils::PixelMul16_2(u16 c0, u16 c1)
+		u16 StaticVideoUtils::PixelMul16_2(u16 c0, u16 c1)
 		{
 			return (u16) ((((c0 & 0x7C00) * (c1 & 0x7C00)) & 0x3E000000) >> 15
 					| (((c0 & 0x03E0) * (c1 & 0x03E0)) & 0x000F8000) >> 10
@@ -203,7 +186,7 @@ namespace irrgame
 		/*
 		 Pixel = c0 * (c1/255). c0 Alpha Retain
 		 */
-		u32 SharedVideoUtils::PixelMul32(const u32 c0, const u32 c1)
+		u32 StaticVideoUtils::PixelMul32(const u32 c0, const u32 c1)
 		{
 			return (c0 & 0xFF000000)
 					| ((((c0 & 0x00FF0000) >> 12) * ((c1 & 0x00FF0000) >> 12))
@@ -217,7 +200,7 @@ namespace irrgame
 		/*
 		 Pixel = c0 * (c1/255).
 		 */
-		u32 SharedVideoUtils::PixelMul32_2(const u32 c0, const u32 c1)
+		u32 StaticVideoUtils::PixelMul32_2(const u32 c0, const u32 c1)
 		{
 			return ((((c0 & 0xFF000000) >> 16) * ((c1 & 0xFF000000) >> 16))
 					& 0xFF000000)
@@ -230,63 +213,63 @@ namespace irrgame
 		}
 
 		// integer log2 of a float ieee 754. TODO: non ieee floating point
-		s32 SharedVideoUtils::s32_log2_f32(f32 f)
+		s32 StaticVideoUtils::s32_log2_f32(f32 f)
 		{
-			u32 x = core::SharedConverter::getInstance().convertToUInt(f);
+			u32 x = core::StaticConverter::convertToUInt(f);
 			return ((x & 0x7F800000) >> 23) - 127;
 		}
 
-		s32 SharedVideoUtils::s32_log2_s32(u32 x)
+		s32 StaticVideoUtils::s32_log2_s32(u32 x)
 		{
 			return s32_log2_f32((f32) x);
 		}
 
 		//! 2D Intersection test
-		bool SharedVideoUtils::intersect(AbsRectangle &dest,
+		bool StaticVideoUtils::intersect(AbsRectangle &dest,
 				const AbsRectangle& a, const AbsRectangle& b)
 		{
-			dest.x0 = core::SharedMath::getInstance().s32Max(a.x0, b.x0);
-			dest.y0 = core::SharedMath::getInstance().s32Max(a.y0, b.y0);
-			dest.x1 = core::SharedMath::getInstance().s32Min(a.x1, b.x1);
-			dest.y1 = core::SharedMath::getInstance().s32Min(a.y1, b.y1);
+			dest.x0 = core::StaticMath::maxi(a.x0, b.x0);
+			dest.y0 = core::StaticMath::maxi(a.y0, b.y0);
+			dest.x1 = core::StaticMath::mini(a.x1, b.x1);
+			dest.y1 = core::StaticMath::mini(a.y1, b.y1);
 
 			return dest.x0 < dest.x1 && dest.y0 < dest.y1;
 		}
 
 		//! Returns the alpha component from A1R5G5B5 color
-		u32 SharedVideoUtils::getAlpha(u16 color)
+		u32 StaticVideoUtils::getAlpha(u16 color)
 		{
 			return ((color >> 15) & 0x1);
 		}
 
 		//! Returns the red component from A1R5G5B5 color.
-		u32 SharedVideoUtils::getRed(u16 color)
+		u32 StaticVideoUtils::getRed(u16 color)
 		{
 			return ((color >> 10) & 0x1F);
 		}
 
 		//! Returns the green component from A1R5G5B5 color
-		u32 SharedVideoUtils::getGreen(u16 color)
+		u32 StaticVideoUtils::getGreen(u16 color)
 		{
 			return ((color >> 5) & 0x1F);
 		}
 
 		//! Returns the blue component from A1R5G5B5 color
 		/** Shift left by 3 to get 8 bit value. */
-		u32 SharedVideoUtils::getBlue(u16 color)
+		u32 StaticVideoUtils::getBlue(u16 color)
 		{
 			return (color & 0x1F);
 		}
 
 		//! Returns the average from a 16 bit A1R5G5B5 color
-		s32 SharedVideoUtils::getAverage(s16 color)
+		s32 StaticVideoUtils::getAverage(s16 color)
 		{
 			return ((getRed(color) << 3) + (getGreen(color) << 3)
 					+ (getBlue(color) << 3)) / 3;
 		}
 
 		//! get the amount of Bits per Pixel of the given color format
-		u32 SharedVideoUtils::getBitsPerPixelFromFormat(
+		u32 StaticVideoUtils::getBitsPerPixelFromFormat(
 				const EColorFormat format)
 		{
 			switch (format)
@@ -317,7 +300,7 @@ namespace irrgame
 		}
 
 		//! test if the color format is only viable for RenderTarget textures
-		bool SharedVideoUtils::isRenderTargetOnlyFormat(
+		bool StaticVideoUtils::isRenderTargetOnlyFormat(
 				const EColorFormat format)
 		{
 			switch (format)
@@ -333,23 +316,22 @@ namespace irrgame
 		}
 
 		//! EMT_ONETEXTURE_BLEND: pack srcFact, dstFact, Modulate and alpha source to MaterialTypeParam
-		f32 SharedVideoUtils::pack_texureBlendFunc(const E_BLEND_FACTOR srcFact,
+		f32 StaticVideoUtils::pack_texureBlendFunc(const E_BLEND_FACTOR srcFact,
 				const E_BLEND_FACTOR dstFact, const E_MODULATE_FUNC modulate,
 				const u32 alphaSource)
 		{
 			const u32 tmp = (alphaSource << 12) | (modulate << 8)
 					| (srcFact << 4) | dstFact;
 
-			return core::SharedConverter::getInstance().convertToFloat(tmp);
+			return core::StaticConverter::convertToFloat(tmp);
 		}
 
 		//! EMT_ONETEXTURE_BLEND: unpack srcFact & dstFact and Modulo to MaterialTypeParam
-		void SharedVideoUtils::unpack_texureBlendFunc(E_BLEND_FACTOR &srcFact,
+		void StaticVideoUtils::unpack_texureBlendFunc(E_BLEND_FACTOR &srcFact,
 				E_BLEND_FACTOR &dstFact, E_MODULATE_FUNC &modulo,
 				u32& alphaSource, const f32 param)
 		{
-			const u32 state =
-					core::SharedConverter::getInstance().convertToUInt(param);
+			const u32 state = core::StaticConverter::convertToUInt(param);
 			alphaSource = (state & 0x0000F000) >> 12;
 			modulo = E_MODULATE_FUNC((state & 0x00000F00) >> 8);
 			srcFact = E_BLEND_FACTOR((state & 0x000000F0) >> 4);
@@ -357,7 +339,7 @@ namespace irrgame
 		}
 
 		//! EMT_ONETEXTURE_BLEND: has BlendFactor Alphablending
-		bool SharedVideoUtils::textureBlendFunc_hasAlpha(
+		bool StaticVideoUtils::textureBlendFuncHasAlpha(
 				const E_BLEND_FACTOR factor)
 		{
 			switch (factor)
@@ -371,6 +353,12 @@ namespace irrgame
 				default:
 					return false;
 			}
+		}
+
+		// small helper function to create vertex buffer object adress offsets
+		u8* StaticVideoUtils::bufferOffset(const long offset)
+		{
+			return ((u8*) 0 + offset);
 		}
 
 	}  // namespace video

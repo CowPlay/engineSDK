@@ -2,18 +2,30 @@
 // This file is part of the "Irrlicht Engine".
 // For conditions of distribution and use, see copyright notice in irrlicht.h
 
-#ifndef __IRR_MATRIX_H_INCLUDED__
-#define __IRR_MATRIX_H_INCLUDED__
+#ifndef MATRIX_H_
+#define MATRIX_H_
 
 #include "core/math/EMatrix4Constructor.h"
-#include "core/math/SharedFastMath.h"
-#include "core/math/SharedConverter.h"
+#include "core/math/StaticMath.h"
+#include "core/math/StaticConverter.h"
 #include "core/collections/stringc.h"
 #include "core/shapes/aabbox3d.h"
 #include "core/shapes/plane3d.h"
 #include "core/shapes/rect.h"
 #include "core/shapes/vector3d.h"
 #include "core/shapes/vector2d.h"
+
+namespace irrgame
+{
+	namespace core
+	{
+		template<class T>
+		class matrix4;
+	}  // namespace core
+}  // namespace irrgame
+
+//! Typedef for matrix
+typedef irrgame::core::matrix4<f32> matrix4f;
 
 namespace irrgame
 {
@@ -360,7 +372,7 @@ namespace irrgame
 
 				//! Compare two matrices using the equal method
 				bool equals(const matrix4<T>& other, const T tolerance =
-						(T) SharedMath::RoundErrF32) const;
+						(T) StaticMath::RoundErrF32) const;
 
 			private:
 				//! Matrix data, stored in row-major order
@@ -801,12 +813,9 @@ namespace irrgame
 
 			// Deal with the 0 rotation case first
 			// Prior to Irrlicht 1.6, we always returned this value.
-			if (SharedMath::getInstance().iszero(M[1])
-					&& SharedMath::getInstance().iszero(M[2])
-					&& SharedMath::getInstance().iszero(M[4])
-					&& SharedMath::getInstance().iszero(M[6])
-					&& SharedMath::getInstance().iszero(M[8])
-					&& SharedMath::getInstance().iszero(M[9]))
+			if (StaticMath::iszero(M[1]) && StaticMath::iszero(M[2])
+					&& StaticMath::iszero(M[4]) && StaticMath::iszero(M[6])
+					&& StaticMath::iszero(M[8]) && StaticMath::iszero(M[9]))
 			{
 				return vector3d<T>(M[0], M[5], M[10]);
 			}
@@ -821,14 +830,14 @@ namespace irrgame
 		inline matrix4<T>& matrix4<T>::setRotationDegrees(
 				const vector3d<T>& rotation)
 		{
-			return setRotationRadians(rotation * SharedMath::DegToRad);
+			return setRotationRadians(rotation * StaticMath::DegToRad);
 		}
 
 		template<class T>
 		inline matrix4<T>& matrix4<T>::setInverseRotationDegrees(
 				const vector3d<T>& rotation)
 		{
-			return setInverseRotationRadians(rotation * SharedMath::DegToRad);
+			return setInverseRotationRadians(rotation * StaticMath::DegToRad);
 		}
 
 		template<class T>
@@ -869,33 +878,31 @@ namespace irrgame
 		{
 			const matrix4<T> &mat = *this;
 			const core::vector3d<T> scale = getScale();
-			const vector3df invScale(
-					SharedFastMath::getInstance().invert(scale.X),
-					SharedFastMath::getInstance().invert(scale.Y),
-					SharedFastMath::getInstance().invert(scale.Z));
+			const vector3df invScale(StaticMath::invert(scale.X),
+					StaticMath::invert(scale.Y), StaticMath::invert(scale.Z));
 
 			f32 Y = -asin(mat[2] * invScale.X);
-			const f32 C = cos(Y);
-			Y *= SharedMath::RadToDeg;
+			const f32 C = StaticMath::cosf_(Y);
+			Y *= StaticMath::RadToDeg;
 
 			f32 rotx, roty, X, Z;
 
-			if (!SharedMath::getInstance().iszero(C))
+			if (!StaticMath::iszero(C))
 			{
-				const f32 invC = SharedFastMath::getInstance().invert(C);
+				const f32 invC = StaticMath::invert(C);
 				rotx = mat[10] * invC * invScale.Z;
 				roty = mat[6] * invC * invScale.Y;
-				X = atan2(roty, rotx) * SharedMath::RadToDeg;
+				X = StaticMath::atan2f_(roty, rotx) * StaticMath::RadToDeg;
 				rotx = mat[0] * invC * invScale.X;
 				roty = mat[1] * invC * invScale.X;
-				Z = atan2(roty, rotx) * SharedMath::RadToDeg;
+				Z = StaticMath::atan2f_(roty, rotx) * StaticMath::RadToDeg;
 			}
 			else
 			{
 				X = 0.0;
 				rotx = mat[5] * invScale.Y;
 				roty = -mat[4] * invScale.Y;
-				Z = atan2(roty, rotx) * SharedMath::RadToDeg;
+				Z = StaticMath::atan2f_(roty, rotx) * StaticMath::RadToDeg;
 			}
 
 			// fix values that get below zero
@@ -958,16 +965,15 @@ namespace irrgame
 		template<class T>
 		inline bool matrix4<T>::isIdentity() const
 		{
-			if (!SharedMath::getInstance().equals(M[0], (T) 1)
-					|| !SharedMath::getInstance().equals(M[5], (T) 1)
-					|| !SharedMath::getInstance().equals(M[10], (T) 1)
-					|| !SharedMath::getInstance().equals(M[15], (T) 1))
+			if (!StaticMath::equals(M[0], (T) 1)
+					|| !StaticMath::equals(M[5], (T) 1)
+					|| !StaticMath::equals(M[10], (T) 1)
+					|| !StaticMath::equals(M[15], (T) 1))
 				return false;
 
 			for (s32 i = 0; i < 4; ++i)
 				for (s32 j = 0; j < 4; ++j)
-					if ((j != i)
-							&& (!SharedMath::getInstance().iszero((*this)(i, j))))
+					if ((j != i) && (!StaticMath::iszero((*this)(i, j))))
 						return false;
 
 			return true;
@@ -978,22 +984,22 @@ namespace irrgame
 		inline bool matrix4<T>::isOrthogonal() const
 		{
 			T dp = M[0] * M[4] + M[1] * M[5] + M[2] * M[6] + M[3] * M[7];
-			if (!SharedMath::getInstance().iszero(dp))
+			if (!StaticMath::iszero(dp))
 				return false;
 			dp = M[0] * M[8] + M[1] * M[9] + M[2] * M[10] + M[3] * M[11];
-			if (!SharedMath::getInstance().iszero(dp))
+			if (!StaticMath::iszero(dp))
 				return false;
 			dp = M[0] * M[12] + M[1] * M[13] + M[2] * M[14] + M[3] * M[15];
-			if (!SharedMath::getInstance().iszero(dp))
+			if (!StaticMath::iszero(dp))
 				return false;
 			dp = M[4] * M[8] + M[5] * M[9] + M[6] * M[10] + M[7] * M[11];
-			if (!SharedMath::getInstance().iszero(dp))
+			if (!StaticMath::iszero(dp))
 				return false;
 			dp = M[4] * M[12] + M[5] * M[13] + M[6] * M[14] + M[7] * M[15];
-			if (!SharedMath::getInstance().iszero(dp))
+			if (!StaticMath::iszero(dp))
 				return false;
 			dp = M[8] * M[12] + M[9] * M[13] + M[10] * M[14] + M[11] * M[15];
-			return (SharedMath::getInstance().iszero(dp));
+			return (StaticMath::iszero(dp));
 		}
 
 		/*
@@ -1005,44 +1011,40 @@ namespace irrgame
 		template<class T>
 		inline bool matrix4<T>::isIdentity_integer_base() const
 		{
-			if (core::SharedConverter::getInstance().convertToUInt(M[0])
-					!= SharedFastMath::F32Value1)
+			if (StaticConverter::convertToUInt(M[0]) != StaticMath::F32Value1)
 				return false;
-			if (SharedConverter::getInstance().convertToUInt(M[1]) != 0)
+			if (StaticConverter::convertToUInt(M[1]) != 0)
 				return false;
-			if (SharedConverter::getInstance().convertToUInt(M[2]) != 0)
+			if (StaticConverter::convertToUInt(M[2]) != 0)
 				return false;
-			if (SharedConverter::getInstance().convertToUInt(M[3]) != 0)
-				return false;
-
-			if (SharedConverter::getInstance().convertToUInt(M[4]) != 0)
-				return false;
-			if (SharedConverter::getInstance().convertToUInt(M[5])
-					!= SharedFastMath::F32Value1)
-				return false;
-			if (SharedConverter::getInstance().convertToUInt(M[6]) != 0)
-				return false;
-			if (SharedConverter::getInstance().convertToUInt(M[7]) != 0)
+			if (StaticConverter::convertToUInt(M[3]) != 0)
 				return false;
 
-			if (SharedConverter::getInstance().convertToUInt(M[8]) != 0)
+			if (StaticConverter::convertToUInt(M[4]) != 0)
 				return false;
-			if (SharedConverter::getInstance().convertToUInt(M[9]) != 0)
+			if (StaticConverter::convertToUInt(M[5]) != StaticMath::F32Value1)
 				return false;
-			if (SharedConverter::getInstance().convertToUInt(M[10])
-					!= SharedFastMath::F32Value1)
+			if (StaticConverter::convertToUInt(M[6]) != 0)
 				return false;
-			if (SharedConverter::getInstance().convertToUInt(M[11]) != 0)
+			if (StaticConverter::convertToUInt(M[7]) != 0)
 				return false;
 
-			if (SharedConverter::getInstance().convertToUInt(M[12]) != 0)
+			if (StaticConverter::convertToUInt(M[8]) != 0)
 				return false;
-			if (SharedConverter::getInstance().convertToUInt(M[13]) != 0)
+			if (StaticConverter::convertToUInt(M[9]) != 0)
 				return false;
-			if (SharedConverter::getInstance().convertToUInt(M[13]) != 0)
+			if (StaticConverter::convertToUInt(M[10]) != StaticMath::F32Value1)
 				return false;
-			if (SharedConverter::getInstance().convertToUInt(M[15])
-					!= SharedFastMath::F32Value1)
+			if (StaticConverter::convertToUInt(M[11]) != 0)
+				return false;
+
+			if (StaticConverter::convertToUInt(M[12]) != 0)
+				return false;
+			if (StaticConverter::convertToUInt(M[13]) != 0)
+				return false;
+			if (StaticConverter::convertToUInt(M[13]) != 0)
+				return false;
+			if (StaticConverter::convertToUInt(M[15]) != StaticMath::F32Value1)
 				return false;
 
 			return true;
@@ -1265,10 +1267,10 @@ namespace irrgame
 					+ (m(0, 2) * m(1, 3) - m(0, 3) * m(1, 2))
 							* (m(2, 0) * m(3, 1) - m(2, 1) * m(3, 0));
 
-			if (SharedMath::getInstance().iszero(d))
+			if (StaticMath::iszero(d))
 				return false;
 
-			d = SharedFastMath::getInstance().invert(d);
+			d = StaticMath::invert(d);
 
 			out(0, 0) =
 					d
@@ -1527,8 +1529,8 @@ namespace irrgame
 		inline matrix4<T>& matrix4<T>::buildProjectionMatrixPerspectiveFovRH(
 				f32 fieldOfViewRadians, f32 aspectRatio, f32 zNear, f32 zFar)
 		{
-			const f32 h = SharedFastMath::getInstance().invert(
-					tan(fieldOfViewRadians * 0.5));
+			const f32 h = StaticMath::invert(
+					StaticMath::tanf_(fieldOfViewRadians * 0.5));
 			//divide by zero
 			IRR_ASSERT( aspectRatio != 0.f);
 
@@ -1569,8 +1571,8 @@ namespace irrgame
 		inline matrix4<T>& matrix4<T>::buildProjectionMatrixPerspectiveFovLH(
 				f32 fieldOfViewRadians, f32 aspectRatio, f32 zNear, f32 zFar)
 		{
-			const f32 h = SharedFastMath::getInstance().invert(
-					tan(fieldOfViewRadians * 0.5));
+			const f32 h = StaticMath::invert(
+					StaticMath::tanf_(fieldOfViewRadians * 0.5));
 
 			//divide by zero
 			IRR_ASSERT( aspectRatio != 0.f);
@@ -2059,8 +2061,8 @@ namespace irrgame
 				const vector2d<f32> &rotatecenter,
 				const vector2d<f32> &translate, const vector2d<f32> &scale)
 		{
-			const f32 c = cosf(rotateRad);
-			const f32 s = sinf(rotateRad);
+			const f32 c = StaticMath::cosf_(rotateRad);
+			const f32 s = StaticMath::sinf_(rotateRad);
 
 			M[0] = (T) (c * scale.X);
 			M[1] = (T) (s * scale.Y);
@@ -2092,8 +2094,8 @@ namespace irrgame
 		template<class T>
 		inline matrix4<T>& matrix4<T>::setTextureRotationCenter(f32 rotateRad)
 		{
-			const f32 c = cosf(rotateRad);
-			const f32 s = sinf(rotateRad);
+			const f32 c = StaticMath::cosf_(rotateRad);
+			const f32 s = StaticMath::sinf_(rotateRad);
 			M[0] = (T) c;
 			M[1] = (T) s;
 
@@ -2185,8 +2187,7 @@ namespace irrgame
 
 			for (s32 i = 0; i < 16; ++i)
 			{
-				if (!SharedMath::getInstance().equals(M[i], other.M[i],
-						tolerance))
+				if (!StaticMath::equals(M[i], other.M[i], tolerance))
 				{
 					result = false;
 					break;
@@ -2205,8 +2206,5 @@ namespace irrgame
 	} // end namespace core
 } // end namespace irrgame
 
-//! Typedef for matrix
-typedef irrgame::core::matrix4<f32> matrix4f;
-
-#endif
+#endif /* MATRIX_H_ */
 

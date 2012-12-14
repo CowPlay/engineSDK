@@ -5,7 +5,7 @@
 #ifndef VECTOR3D_H_
 #define VECTOR3D_H_
 
-#include "core/math/SharedFastMath.h"
+#include "core/math/StaticMath.h"
 
 namespace irrgame
 {
@@ -78,7 +78,7 @@ namespace irrgame
 
 				//! returns if this vector equals the other one, taking floating point rounding errors into account
 				bool equals(const vector3d<T>& other, const T tolerance =
-						(T) SharedMath::RoundErrF32) const;
+						(T) StaticMath::RoundErrF32) const;
 
 				vector3d<T>& set(const T nx, const T ny, const T nz);
 				vector3d<T>& set(const vector3d<T>& p);
@@ -453,19 +453,12 @@ namespace irrgame
 			if (this == &other)
 				return true;
 
-			bool result = (X < other.X
-					|| core::SharedMath::getInstance().equals(X, other.X))
-					|| (core::SharedMath::getInstance().equals(X, other.X)
-							&& (Y < other.Y
-									|| core::SharedMath::getInstance().equals(Y,
-											other.Y)))
-					|| (core::SharedMath::getInstance().equals(X, other.X)
-							&& core::SharedMath::getInstance().equals(Y,
-									other.Y)
-							&& (Z < other.Z
-									|| core::SharedMath::getInstance().equals(Z,
-											other.Z)));
-
+			bool result = (X < other.X || StaticMath::equals(X, other.X))
+					|| (StaticMath::equals(X, other.X)
+							&& (Y < other.Y || StaticMath::equals(Y, other.Y)))
+					|| (StaticMath::equals(X, other.X)
+							&& StaticMath::equals(Y, other.Y)
+							&& (Z < other.Z || StaticMath::equals(Z, other.Z)));
 
 			return result;
 		}
@@ -477,19 +470,12 @@ namespace irrgame
 			if (this == &other)
 				return true;
 
-			bool result = (X > other.X
-					|| core::SharedMath::getInstance().equals(X, other.X))
-					|| (core::SharedMath::getInstance().equals(X, other.X)
-							&& (Y > other.Y
-									|| core::SharedMath::getInstance().equals(Y,
-											other.Y)))
-					|| (core::SharedMath::getInstance().equals(X, other.X)
-							&& core::SharedMath::getInstance().equals(Y,
-									other.Y)
-							&& (Z > other.Z
-									|| core::SharedMath::getInstance().equals(Z,
-											other.Z)));
-
+			bool result = (X > other.X || StaticMath::equals(X, other.X))
+					|| (StaticMath::equals(X, other.X)
+							&& (Y > other.Y || StaticMath::equals(Y, other.Y)))
+					|| (StaticMath::equals(X, other.X)
+							&& StaticMath::equals(Y, other.Y)
+							&& (Z > other.Z || StaticMath::equals(Z, other.Z)));
 
 			return result;
 		}
@@ -504,18 +490,12 @@ namespace irrgame
 				return false;
 			}
 
-			bool result = (X < other.X
-					&& !core::SharedMath::getInstance().equals(X, other.X))
-					|| (core::SharedMath::getInstance().equals(X, other.X)
-							&& Y < other.Y
-							&& !core::SharedMath::getInstance().equals(Y,
-									other.Y))
-					|| (core::SharedMath::getInstance().equals(X, other.X)
-							&& core::SharedMath::getInstance().equals(Y,
-									other.Y) && Z < other.Z
-							&& !core::SharedMath::getInstance().equals(Z,
-									other.Z));
-
+			bool result = (X < other.X && !StaticMath::equals(X, other.X))
+					|| (StaticMath::equals(X, other.X) && Y < other.Y
+							&& !StaticMath::equals(Y, other.Y))
+					|| (StaticMath::equals(X, other.X)
+							&& StaticMath::equals(Y, other.Y) && Z < other.Z
+							&& !StaticMath::equals(Z, other.Z));
 
 			return result;
 		}
@@ -530,18 +510,12 @@ namespace irrgame
 				return false;
 			}
 
-			bool result = (X > other.X
-					&& !core::SharedMath::getInstance().equals(X, other.X))
-					|| (core::SharedMath::getInstance().equals(X, other.X)
-							&& Y > other.Y
-							&& !core::SharedMath::getInstance().equals(Y,
-									other.Y))
-					|| (core::SharedMath::getInstance().equals(X, other.X)
-							&& core::SharedMath::getInstance().equals(Y,
-									other.Y) && Z > other.Z
-							&& !core::SharedMath::getInstance().equals(Z,
-									other.Z));
-
+			bool result = (X > other.X && !StaticMath::equals(X, other.X))
+					|| (StaticMath::equals(X, other.X) && Y > other.Y
+							&& !StaticMath::equals(Y, other.Y))
+					|| (StaticMath::equals(X, other.X)
+							&& StaticMath::equals(Y, other.Y) && Z > other.Z
+							&& !StaticMath::equals(Z, other.Z));
 
 			return result;
 		}
@@ -566,11 +540,10 @@ namespace irrgame
 		inline bool vector3d<T>::equals(const vector3d<T>& other,
 				const T tolerance) const
 		{
-			return core::SharedMath::getInstance().equals(X, other.X, tolerance)
+			return StaticMath::equals(X, other.X, tolerance)
 
-			&& core::SharedMath::getInstance().equals(Y, other.Y, tolerance)
-					&& core::SharedMath::getInstance().equals(Z, other.Z,
-							tolerance);
+			&& StaticMath::equals(Y, other.Y, tolerance)
+					&& StaticMath::equals(Z, other.Z, tolerance);
 		}
 
 		template<class T>
@@ -593,8 +566,7 @@ namespace irrgame
 		template<class T>
 		inline T vector3d<T>::getLength() const
 		{
-			return core::SharedMath::getInstance().squareroot(
-					X * X + Y * Y + Z * Z);
+			return StaticMath::squareroot(X * X + Y * Y + Z * Z);
 		}
 
 		//! Get squared length of the vector.
@@ -661,7 +633,6 @@ namespace irrgame
 			bool result = getDistanceFromSQ(begin) <= f
 					&& getDistanceFromSQ(end) <= f;
 
-
 			return result;
 		}
 
@@ -671,12 +642,12 @@ namespace irrgame
 		{
 			f32 length = X * X + Y * Y + Z * Z;
 
-			if (core::SharedMath::getInstance().equals(length, 0.0)) // this check isn't an optimization but prevents getting NAN in the sqrt.
+			if (StaticMath::equals(length, 0.0)) // this check isn't an optimization but prevents getting NAN in the sqrt.
 			{
 				return *this;
 			}
 
-			length = core::SharedFastMath::getInstance().invertSqrt(length);
+			length = core::StaticMath::invertSqrt(length);
 
 			X = (T) (X * length);
 			Y = (T) (Y * length);
@@ -713,9 +684,9 @@ namespace irrgame
 			if (this == &center)
 				return;
 
-			degrees *= core::SharedMath::DegToRad;
-			f32 cs = cos(degrees);
-			f32 sn = sin(degrees);
+			degrees *= core::StaticMath::DegToRad;
+			f32 cs = StaticMath::cosf_(degrees);
+			f32 sn = StaticMath::sinf_(degrees);
 			X -= center.X;
 			Z -= center.Z;
 
@@ -735,9 +706,9 @@ namespace irrgame
 			if (this == &center)
 				return;
 
-			degrees *= core::SharedMath::DegToRad;
-			f32 cs = cos(degrees);
-			f32 sn = sin(degrees);
+			degrees *= core::StaticMath::DegToRad;
+			f32 cs = StaticMath::cosf_(degrees);
+			f32 sn = StaticMath::sinf_(degrees);
 
 			X -= center.X;
 			Y -= center.Y;
@@ -758,9 +729,9 @@ namespace irrgame
 			if (this == &center)
 				return;
 
-			degrees *= core::SharedMath::DegToRad;
-			f32 cs = cos(degrees);
-			f32 sn = sin(degrees);
+			degrees *= core::StaticMath::DegToRad;
+			f32 cs = StaticMath::cosf_(degrees);
+			f32 sn = StaticMath::sinf_(degrees);
 			Z -= center.Z;
 			Y -= center.Y;
 
@@ -792,8 +763,8 @@ namespace irrgame
 		{
 			vector3d<T> result;
 
-			const f32 tmp = (atan2((f32) X, (f32) Z)
-					* core::SharedMath::RadToDeg);
+			const f32 tmp = (StaticMath::atan2f_((f32) X, (f32) Z)
+					* core::StaticMath::RadToDeg);
 			result.Y = (T) tmp;
 
 			if (result.Y < 0)
@@ -805,11 +776,10 @@ namespace irrgame
 				result.Y -= 360;
 			}
 
-			const f32 z1 = core::SharedMath::getInstance().squareroot(
-					X * X + Z * Z);
+			const f32 z1 = StaticMath::squareroot(X * X + Z * Z);
 
-			result.X = (T) (atan2((f32) z1, (f32) Y)
-					* core::SharedMath::RadToDeg - 90.0);
+			result.X = (T) (StaticMath::atan2f_((f32) z1, (f32) Y)
+					* core::StaticMath::RadToDeg - 90.0);
 
 			if (result.X < 0)
 			{
@@ -835,20 +805,16 @@ namespace irrgame
 			{
 				if (X != 0)
 				{
-					result.Y = (T) (atan2((f32) Z, (f32) X)
-							* core::SharedMath::RadToDeg);
+					result.Y = (T) (StaticMath::atan2f_((f32) Z, (f32) X)
+							* core::StaticMath::RadToDeg);
 				}
 				else if (Z < 0)
 				{
 					result.Y = 180;
 				}
 
-				result.X =
-						(T) (acos(
-								Y
-										* core::SharedFastMath::getInstance().invertSqrt(
-												length))
-								* core::SharedMath::RadToDeg);
+				result.X = (T) (acos(Y * core::StaticMath::invertSqrt(length))
+						* core::StaticMath::RadToDeg);
 			}
 
 			return result;
@@ -860,12 +826,12 @@ namespace irrgame
 				const vector3d<T>& forwards) const
 		{
 
-			const f32 cr = cos(core::SharedMath::DegToRad * X);
-			const f32 sr = sin(core::SharedMath::DegToRad * X);
-			const f32 cp = cos(core::SharedMath::DegToRad * Y);
-			const f32 sp = sin(core::SharedMath::DegToRad * Y);
-			const f32 cy = cos(core::SharedMath::DegToRad * Z);
-			const f32 sy = sin(core::SharedMath::DegToRad * Z);
+			const f32 cr = cos(core::StaticMath::DegToRad * X);
+			const f32 sr = sin(core::StaticMath::DegToRad * X);
+			const f32 cp = cos(core::StaticMath::DegToRad * Y);
+			const f32 sp = sin(core::StaticMath::DegToRad * Y);
+			const f32 cy = cos(core::StaticMath::DegToRad * Z);
+			const f32 sy = sin(core::StaticMath::DegToRad * Z);
 
 			const f32 srsp = sr * sp;
 			const f32 crsp = cr * sp;
